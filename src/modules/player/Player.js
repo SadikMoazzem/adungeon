@@ -1,10 +1,9 @@
-export default class Enemy {
-    constructor(name, config) {
-        this.type = name;
-        this.health = config.hp;
-        this.dpa = config.dpa;
-        this.worth = config.gold;
-        this.isDefeated = false;
+export default class Player {
+    constructor(mapID) {
+        this.mapID = mapID
+        this.health = 100
+        this.wealth = 100
+        this.items = []
     }
 
     get maze() {
@@ -21,7 +20,7 @@ export default class Enemy {
         for (const [roomId, config] of Object.entries(currentMap)) {
             maze[roomId] = new Room(config);
         }
-        
-        return maze
+
+        return maze;
     }
 }

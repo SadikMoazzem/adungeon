@@ -1,5 +1,5 @@
 import {
-    ENEMY_TYPES, WEAPON_TYPES, ROOM_VALIDATION, ROOM_TYPES, TREASURE_TYPES,
+    ENEMY_TYPES, WEAPON_TYPES, ROOM_VALIDATION, ROOM_TYPES, TREASURE_TYPES, BACKGROUNDS
 } from './constants';
 import KeyError from './KeyError';
 
@@ -10,23 +10,25 @@ export default class Room {
         this.enemy = [];
         this.treasures = [];
         this.weapons = [];
+        this.view = false;
+        this.background = '';
         this.config = {
             n: {
                 next: roomObj.north,
-                hasBeenChecked: false
+                hasBeenChecked: false,
             },
             e: {
                 next: roomObj.east,
-                hasBeenChecked: false
+                hasBeenChecked: false,
             },
             s: {
                 next: roomObj.south,
-                hasBeenChecked: false
+                hasBeenChecked: false,
             },
             w: {
                 next: roomObj.west,
-                hasBeenChecked: false
-            }
+                hasBeenChecked: false,
+            },
         };
 
         this.renderRoomSettings();
@@ -34,22 +36,29 @@ export default class Room {
 
     renderRoomSettings() {
         const getRandomValue = (Obj) => {
-            let keys = Object.keys(Obj)
-            return Obj[keys[ keys.length * Math.random() << 0]];
-        }
+            const keys = Object.keys(Obj);
+            return Obj[keys[keys.length * Math.random() << 0]];
+        };
 
         switch (this.roomType) {
             case ROOM_TYPES.ENTRANCE:
                 this.weapons = Object.keys(WEAPON_TYPES);
+                this.background = BACKGROUNDS.ENTRANCE;
                 break;
             case ROOM_TYPES.ENEMY:
                 this.enemy = getRandomValue(ENEMY_TYPES);
+                this.background = BACKGROUNDS.ENEMY;
                 break;
             case ROOM_TYPES.TREASURE:
                 this.treasures = getRandomValue(TREASURE_TYPES);
+                this.background = BACKGROUNDS.TREASURE;
+                break;
+            case ROOM_TYPES.EXIT:
+                this.background = BACKGROUNDS.EXIT;
                 break;
             default:
             case ROOM_TYPES.DEFAULT:
+                this.background = BACKGROUNDS.DEFAULT;
                 break;
         }
     }
@@ -62,54 +71,51 @@ export default class Room {
                 if (!(keyValidation in roomObj[roomId])) {
                     missingKeys.push(keyValidation);
                 }
-            })
+            });
         }
 
-        return missingKeys.length === 0
+        return missingKeys.length === 0;
     }
 
     static checkMapWorks(map) {
         let startId;
         for (const roomId in map) {
             if (map[roomId].roomType === ROOM_TYPES.ENTRANCE) {
-                startId = roomId
+                startId = roomId;
             }
         }
 
         if (!startId) {
-            throw new KeyError('Cannot find start room!')
+            throw new KeyError('Cannot find start room!');
         }
 
         console.log(`Found Entrance room(s) at ${startId}`);
-
-
         const exitID = [];
-        const exitIdOccurrences = this.checkRoom(map[startId], map, exitID)
-        const exits = this.checkWaysToExit(exitIdOccurrences)
-    
+        const exitIdOccurrences = this.checkRoom(map[startId], map, exitID);
+        const exits = this.checkWaysToExit(exitIdOccurrences);
+
         return exits;
     }
 
     static checkWaysToExit(exitIdOccurrences) {
-        const exitIds = (exitIdOccurrences) => {
-            return exitIdOccurrences.filter((a, b) => exitIdOccurrences.indexOf(a) === b)
-        }
-        let counts = {};
+        const exitIds = () => {
+            return exitIdOccurrences.filter((a, b) => exitIdOccurrences.indexOf(a) === b);
+        };
+        const counts = {};
 
-        for (let i = 0; i < exitIdOccurrences.length; i++) {
-            let num = exitIdOccurrences[i];
+        for (let i = 0; i < exitIdOccurrences.length; i += 1) {
+            const num = exitIdOccurrences[i];
             counts[num] = counts[num] ? counts[num] + 1 : 1;
         }
 
-        return { exitIds: exitIds(exitIdOccurrences), counts}
+        return { exitIds: exitIds(), counts };
     }
 
     static checkRoom(currentRoom, map, exitID) {
         if (currentRoom.roomType === ROOM_TYPES.EXIT) {
-            exitID.push(currentRoom.roomId)
+            exitID.push(currentRoom.roomId);
             return exitID;
-        }
-        else {
+        } else {
             if (!currentRoom.config.n.hasBeenChecked && currentRoom.config.n.next) {
                 map[currentRoom.roomId].config.n.hasBeenChecked = true;
                 exitID.concat(this.checkRoom(map[currentRoom.config.n.next], map, exitID));
@@ -117,7 +123,7 @@ export default class Room {
             if (!currentRoom.config.s.hasBeenChecked && currentRoom.config.s.next) {
                 map[currentRoom.roomId].config.s.hasBeenChecked = true;
                 exitID.concat(this.checkRoom(map[currentRoom.config.s.next], map, exitID));
-            } 
+            }
             if (!currentRoom.config.e.hasBeenChecked && currentRoom.config.e.next) {
                 map[currentRoom.roomId].config.e.hasBeenChecked = true;
                 exitID.concat(this.checkRoom(map[currentRoom.config.e.next], map, exitID));

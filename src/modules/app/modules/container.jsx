@@ -4,31 +4,21 @@ import {bindActionCreators} from 'redux';
 
 import * as moduleActions from '../actions';
 
-import Maze from '../../maze/Maze';
+
 import OptionsMenu from './OptionsMenu';
 import MazeContainer from './MazeContainer';
 
 const mapStateToProps = (state) => ({
-    state: state
- })
+    state,
+});
 
 const mapDispatchToProps = (dispatch) => ({
-    actions: bindActionCreators(moduleActions, dispatch)
-})
+    actions: bindActionCreators(moduleActions, dispatch),
+});
 
 class App extends Component {
     render() {
         console.log(this.props.state);
-        try {
-            Maze.validateMazeConfig('map')
-        }
-        catch(e) {
-            // Return error message to user
-            console.error(e);
-        }
-        const maze = new Maze('map')
-
-        console.log(maze)
         return (
             <div className="app">
                 <OptionsMenu />

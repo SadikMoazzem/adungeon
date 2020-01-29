@@ -5,49 +5,58 @@ import * as maps from './maps';
 
 export default class Maze {
     constructor(mapID) {
-        this.mapID = mapID
+        this.mapID = mapID;
+        this.config = maps[this.mapID].config;
     }
 
-    get maze() {
+    get getMaze() {
         return this.createMaze();
+    }
+
+    getRoomObj(roomId) {
+        if (!this.getMaze[roomId]) {
+            console.error(`Room with ID ${roomId} does not exist`);
+            return;
+        }
+        return this.getMaze[roomId];
     }
 
     /**
      * Creates an instance of all of the rooms for the maze
      */
     createMaze() {
-        const currentMap = maps[this.mapID];
+        const currentMap = maps[this.mapID].schema;
         const maze = {};
 
         for (const [roomId, config] of Object.entries(currentMap)) {
             maze[roomId] = new Room(config);
         }
-        
-        return maze
+
+        return maze;
     }
 
     /**
      * Checks if the Maze config is valid
      */
     static validateMazeConfig(mapID) {
-        console.log('Validating Map')
+        console.log('Validating Map');
         // Check if we have the map
-        console.log('Checking if map exists...')
+        console.log('Checking if map exists...');
         if (!maps[mapID]) {
             throw ReferenceError(`Map with ID ${mapID} does not exist`);
         } else {
-            console.log('Found Map!')
+            console.log('Found Map!');
         }
         // Make sure the map has valid rooms
-        console.log('Checking if all rooms are valid...')
-        if (!Room.validateRooms(maps[mapID])) {
+        console.log('Checking if all rooms are valid...');
+        if (!Room.validateRooms(maps[mapID].schema)) {
             throw new KeyError('Room object is missing keys.');
         } else {
-            console.log('Rooms are valid!')
+            console.log('Rooms are valid!');
         }
         // Make sure the maze works
-        console.log('Checking if maze config works...')
-        const exits = Room.checkMapWorks(new Maze(mapID).maze);
+        console.log('Checking if maze config works...');
+        const exits = Room.checkMapWorks(new Maze(mapID).getMaze);
 
         if (exits.exitIds.length === 1) {
             console.log(`Successfully found ${exits.counts[exits.exitIds[0]]} ways to go to the exit room found at ${exits.exitIds[0]}`);
