@@ -4,6 +4,10 @@ import {bindActionCreators} from 'redux';
 
 import * as moduleActions from '../actions';
 
+import Maze from '../../maze/Maze';
+import OptionsMenu from './OptionsMenu';
+import MazeContainer from './MazeContainer';
+
 const mapStateToProps = (state) => ({
     state: state
  })
@@ -14,26 +18,27 @@ const mapDispatchToProps = (dispatch) => ({
 
 class App extends Component {
     render() {
-      console.log(this.props.state);
+        console.log(this.props.state);
+        try {
+            Maze.validateMazeConfig('map')
+        }
+        catch(e) {
+            // Return error message to user
+            console.error(e);
+        }
+        const maze = new Maze('map')
 
-      return (
-        <div className="App">
-          <header className="App-header">
-            {/* <img src={logo} className="App-logo" alt="logo" /> */}
-            <p onClick={()=>this.props.actions.simpleAction()}>
-              Edit <code>src/App.js</code> and save to reload.
-            </p>
-            <a
-              className="App-link"
-              href="https://reactjs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn React
-            </a>
-          </header>
-        </div>
-      );
+        console.log(maze)
+        return (
+            <div className="app">
+                <OptionsMenu />
+                <header>
+                    <img src='android-chrome-512x512.png' alt='logo' />
+                    <h1>aDungeon</h1>
+                </header>
+                <MazeContainer />
+            </div>
+        );
     }
 }
 
