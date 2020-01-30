@@ -24,12 +24,12 @@ export const ENEMY_CONFIGS = {
     MONSTER: {
         hp: 40,
         dpa: 10,
-        gold: 15,
+        TREASURE: 15,
     },
     ALIEN: {
         hp: 40,
         dpa: 10,
-        gold: 10,
+        TREASURE: 10,
     },
 };
 

@@ -1,9 +1,13 @@
 import { ROOM_TYPES } from './constants';
 
+export const maps = [
+    'map',
+];
+
 export const map = {
     config: {
         rows: 4,
-        columns: 4
+        columns: 4,
     },
     schema: {
         1: {
@@ -135,4 +139,4 @@ export const map = {
             west: 15,
         }
     }
-}
+};

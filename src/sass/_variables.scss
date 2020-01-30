@@ -1,9 +1,11 @@
 
 // Fonts
-$default-font: Sans;
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower&display=swap');
+$default-font: 'Indie Flower', cursive;
 
 // Colors
 $background-color: #272643;
-$default-color-font: white;
+$default-color-font: lightgray;
+$color-active: #FD827C;
 
 // Sizes

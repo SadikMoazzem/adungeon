@@ -1,0 +1,7 @@
+export const VIEW = {
+    MAIN_MENU: 'MAIN_MENU',
+    OPTIONS_MENU: 'OPTIONS_MENU',
+    GAME_VIEW: 'GAME_VIEW',
+    LOADING: 'LOADING',
+    ERROR: 'ERROR',
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Maze from '../../maze/Maze';
+import Maze from '../../../maze/Maze';
 import Minimap from './Minimap';
 
 const MazeContainer = () => {

@@ -1,4 +1,8 @@
 @import '_variables.scss';
+@import 'loading-screen.scss';
+@import 'error-screen.scss';
+@import 'main-menu.scss';
+@import 'options-menu.scss';
 
 .app {
     position: fixed;
@@ -8,35 +12,27 @@
     width: 100vw;
     min-width: 320px;
     font-family: $default-font, serif;
-    background-color: $background-color;
-    display: grid;
-    grid-template-rows: auto auto;
+    background: #0F2027;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: $default-color-font;
 
-    .app--options-menu {
-        position: fixed;
-        top: 40%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 500px;
-        min-height: 300px;
-        border-radius: 4px;
-        background-color: white;
-        box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.75);
-        display: none;
-    }
-
     > header {
-        display: grid;
-        justify-self: center;
-        align-self: center;
-        grid-template-columns: 100px auto;
-        margin: 12px;
-        color: $default-color-font;
+        text-align: center;
+        margin-top: 60px;
+        font-size: 100px;
+        color: $color-active;
+        position: relative;
 
-        > img {
-            width: 80px;
+        .sub-text {
+            position: absolute;
+            font-size: 18px;
+            color: white;
+            bottom: 0;
+            left: 60%;
+            transform: translateX(-50%);
         }
+
     }
 
     .app--maze-container {

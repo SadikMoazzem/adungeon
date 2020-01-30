@@ -35,6 +35,50 @@ export default class Maze {
         return maze;
     }
 
+    static checkIfMapExists(mapID) {
+        const promise = new Promise((res, err) => {
+            setTimeout(() => {
+                if (!maps[mapID]) {
+                    err(ReferenceError('Map does not exist'));
+                } else {
+                    res({ msg: 'Map Found' });
+                }
+            }, 1300);
+        });
+        return promise;
+    }
+
+    static validateRooms(mapID) {
+        const promise = new Promise((res, err) => {
+            setTimeout(() => {
+                if (!Room.validateRooms(maps[mapID].schema)) {
+                    err(new KeyError('Room object is missing keys.'));
+                } else {
+                    res({ msg: 'Rooms are valid!' });
+                }
+            }, 1300);
+        });
+        return promise;
+    }
+
+    static validateMaze(mapID) {
+        const promise = new Promise((res, err) => {
+            setTimeout(() => {
+                const exits = Room.checkMapWorks(new Maze(mapID).getMaze);
+
+                if (exits.exitIds.length === 1) {
+                    console.log(`Successfully found ${exits.counts[exits.exitIds[0]]} ways to go to the exit room found at ${exits.exitIds[0]}`);
+                    res({ msg: 'Validated Maze config' });
+                } else if (exits.exitIds.length > 1) {
+                    err(ReferenceError('Found more than one exit room!'));
+                } else {
+                    err(ReferenceError('No passages to exit found'));
+                }
+            }, 1300);
+        });
+        return promise;
+    }
+
     /**
      * Checks if the Maze config is valid
      */

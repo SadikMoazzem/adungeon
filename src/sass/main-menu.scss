@@ -1,0 +1,98 @@
+.app .app--main-menu {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+    display: grid;
+    grid-template-columns: auto auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    column-gap: 60px;
+
+    .back-btn {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        font-size: 30px;
+        cursor: pointer;
+
+        &:hover {
+            color: $color-active;
+        }
+    }
+
+    .main-menu--image {
+        width: 300px;
+        height: 300px;
+        padding: 24px;
+        border-radius: 4px;
+
+        > img {
+            height: 100%;
+        }
+    }
+    .main-menu--options {
+        padding: 24px;
+        display: grid;
+        align-items: center;
+        height: 50%;
+        align-self: center;
+        width: 250px;
+
+        .menu-option {
+            position: relative;
+            font-size: 2rem;
+            padding: 12px 24px;
+            padding-right: 120px;
+            padding-bottom: 35px;
+            border-radius: 12px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            color: $default-color-font;
+            border: 1px solid #4685A0;
+            border-color: transparent;
+
+            .menu-option--sub-text {
+                font-size: 1rem;
+                white-space: nowrap;
+                position: absolute;
+                bottom: 24px;
+                opacity: 0;
+                transition: all 300ms ease-in;
+                color: $default-color-font;
+
+            }
+
+            &:hover {
+                color: $color-active;
+                border-color: $default-color-font;
+
+                .menu-option--sub-text {
+                    bottom: 12px;
+                    opacity: 1;
+                    transition: all 200ms linear;
+                }
+            }
+        }
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+  
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+  
+    to {
+      opacity: 1;
+    }
+  }
