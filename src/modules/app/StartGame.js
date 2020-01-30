@@ -21,7 +21,7 @@ export default function StartGame(dispatch, mapName, playerName) {
                                 dispatch(appActions.updateLoadingMessage('Starting Game'));
                                 const game = new Maze(mapName);
                                 dispatch(appActions.loadMazeGame(game.getMaze));
-                            }, 1000);
+                            }, 1500);
                         });
                 });
         })

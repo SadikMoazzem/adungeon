@@ -137,6 +137,6 @@ export const map = {
             east: 0,
             south: 0,
             west: 15,
-        }
-    }
+        },
+    },
 };

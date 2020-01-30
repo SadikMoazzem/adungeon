@@ -1,7 +1,6 @@
 import {
-    ENEMY_TYPES, WEAPON_TYPES, ROOM_VALIDATION, ROOM_TYPES, TREASURE_TYPES, BACKGROUNDS
+    ENEMY_TYPES, WEAPON_TYPES, ROOM_TYPES, TREASURE_TYPES, BACKGROUNDS,
 } from './constants';
-import KeyError from './KeyError';
 
 export default class Room {
     constructor(roomObj) {
@@ -60,79 +59,6 @@ export default class Room {
             case ROOM_TYPES.DEFAULT:
                 this.background = BACKGROUNDS.DEFAULT;
                 break;
-        }
-    }
-
-    static validateRooms(roomObj) {
-        // Validation of keys
-        const missingKeys = [];
-        for (const roomId in roomObj) {
-            ROOM_VALIDATION.forEach((keyValidation) => {
-                if (!(keyValidation in roomObj[roomId])) {
-                    missingKeys.push(keyValidation);
-                }
-            });
-        }
-
-        return missingKeys.length === 0;
-    }
-
-    static checkMapWorks(map) {
-        let startId;
-        for (const roomId in map) {
-            if (map[roomId].roomType === ROOM_TYPES.ENTRANCE) {
-                startId = roomId;
-            }
-        }
-
-        if (!startId) {
-            throw new KeyError('Cannot find start room!');
-        }
-
-        console.log(`Found Entrance room(s) at ${startId}`);
-        const exitID = [];
-        const exitIdOccurrences = this.checkRoom(map[startId], map, exitID);
-        const exits = this.checkWaysToExit(exitIdOccurrences);
-
-        return exits;
-    }
-
-    static checkWaysToExit(exitIdOccurrences) {
-        const exitIds = () => {
-            return exitIdOccurrences.filter((a, b) => exitIdOccurrences.indexOf(a) === b);
-        };
-        const counts = {};
-
-        for (let i = 0; i < exitIdOccurrences.length; i += 1) {
-            const num = exitIdOccurrences[i];
-            counts[num] = counts[num] ? counts[num] + 1 : 1;
-        }
-
-        return { exitIds: exitIds(), counts };
-    }
-
-    static checkRoom(currentRoom, map, exitID) {
-        if (currentRoom.roomType === ROOM_TYPES.EXIT) {
-            exitID.push(currentRoom.roomId);
-            return exitID;
-        } else {
-            if (!currentRoom.config.n.hasBeenChecked && currentRoom.config.n.next) {
-                map[currentRoom.roomId].config.n.hasBeenChecked = true;
-                exitID.concat(this.checkRoom(map[currentRoom.config.n.next], map, exitID));
-            }
-            if (!currentRoom.config.s.hasBeenChecked && currentRoom.config.s.next) {
-                map[currentRoom.roomId].config.s.hasBeenChecked = true;
-                exitID.concat(this.checkRoom(map[currentRoom.config.s.next], map, exitID));
-            }
-            if (!currentRoom.config.e.hasBeenChecked && currentRoom.config.e.next) {
-                map[currentRoom.roomId].config.e.hasBeenChecked = true;
-                exitID.concat(this.checkRoom(map[currentRoom.config.e.next], map, exitID));
-            }
-            if (!currentRoom.config.w.hasBeenChecked && currentRoom.config.w.next) {
-                map[currentRoom.roomId].config.w.hasBeenChecked = true;
-                exitID.concat(this.checkRoom(map[currentRoom.config.w.next], map, exitID));
-            }
-            return exitID;
         }
     }
 }

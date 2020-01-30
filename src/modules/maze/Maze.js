@@ -2,6 +2,8 @@ import Room from './Room';
 import KeyError from './KeyError';
 
 import * as maps from './maps';
+import ValidateMaze from './ValidateMaze';
+import ValidateRoomsHasKeys from './ValidateRoom';
 
 export default class Maze {
     constructor(mapID) {
@@ -13,6 +15,9 @@ export default class Maze {
         return this.createMaze();
     }
 
+    /**
+     * Gets a room object by ID
+     */
     getRoomObj(roomId) {
         if (!this.getMaze[roomId]) {
             console.error(`Room with ID ${roomId} does not exist`);
@@ -35,6 +40,41 @@ export default class Maze {
         return maze;
     }
 
+    /**
+     * Checks if the Maze config is valid
+     */
+    static validateMazeConfig(mapID) {
+        console.log('Validating Map');
+        // Check if we have the map
+        console.log('Checking if map exists...');
+        if (!maps[mapID]) {
+            throw ReferenceError(`Map with ID ${mapID} does not exist`);
+        } else {
+            console.log('Found Map!');
+        }
+        // Make sure the map has valid rooms
+        console.log('Checking if all rooms are valid...');
+        if (!ValidateRoomsHasKeys(maps[mapID].schema)) {
+            throw new KeyError('Room object is missing keys.');
+        } else {
+            console.log('Rooms are valid!');
+        }
+        // Make sure the maze works
+        console.log('Checking if maze config works...');
+        const exits = ValidateMaze(new Maze(mapID).getMaze);
+
+        if (exits.exitIds.length === 1) {
+            console.log(`Successfully found ${exits.counts[exits.exitIds[0]]} ways to go to the exit room found at ${exits.exitIds[0]}`);
+        } else if (exits.exitIds.length > 1) {
+            throw ReferenceError('Found more than one exit room!');
+        } else {
+            throw ReferenceError('No passages to exit found');
+        }
+    }
+
+    /**
+     * Validation split into promises so we can simulate loading
+     */
     static checkIfMapExists(mapID) {
         const promise = new Promise((res, err) => {
             setTimeout(() => {
@@ -51,7 +91,7 @@ export default class Maze {
     static validateRooms(mapID) {
         const promise = new Promise((res, err) => {
             setTimeout(() => {
-                if (!Room.validateRooms(maps[mapID].schema)) {
+                if (!ValidateRoomsHasKeys(maps[mapID].schema)) {
                     err(new KeyError('Room object is missing keys.'));
                 } else {
                     res({ msg: 'Rooms are valid!' });
@@ -64,7 +104,7 @@ export default class Maze {
     static validateMaze(mapID) {
         const promise = new Promise((res, err) => {
             setTimeout(() => {
-                const exits = Room.checkMapWorks(new Maze(mapID).getMaze);
+                const exits = ValidateMaze(new Maze(mapID).getMaze);
 
                 if (exits.exitIds.length === 1) {
                     console.log(`Successfully found ${exits.counts[exits.exitIds[0]]} ways to go to the exit room found at ${exits.exitIds[0]}`);
@@ -77,37 +117,5 @@ export default class Maze {
             }, 1300);
         });
         return promise;
-    }
-
-    /**
-     * Checks if the Maze config is valid
-     */
-    static validateMazeConfig(mapID) {
-        console.log('Validating Map');
-        // Check if we have the map
-        console.log('Checking if map exists...');
-        if (!maps[mapID]) {
-            throw ReferenceError(`Map with ID ${mapID} does not exist`);
-        } else {
-            console.log('Found Map!');
-        }
-        // Make sure the map has valid rooms
-        console.log('Checking if all rooms are valid...');
-        if (!Room.validateRooms(maps[mapID].schema)) {
-            throw new KeyError('Room object is missing keys.');
-        } else {
-            console.log('Rooms are valid!');
-        }
-        // Make sure the maze works
-        console.log('Checking if maze config works...');
-        const exits = Room.checkMapWorks(new Maze(mapID).getMaze);
-
-        if (exits.exitIds.length === 1) {
-            console.log(`Successfully found ${exits.counts[exits.exitIds[0]]} ways to go to the exit room found at ${exits.exitIds[0]}`);
-        } else if (exits.exitIds.length > 1) {
-            throw ReferenceError('Found more than one exit room!');
-        } else {
-            throw ReferenceError('No passages to exit found');
-        }
     }
 }

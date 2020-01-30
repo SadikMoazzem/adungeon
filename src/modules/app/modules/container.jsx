@@ -26,7 +26,9 @@ const App = (props) => {
     // DEBUG ONLY
     console.log(props.globalState);
 
-    const { view, isOptionsOpen, loadingMessage, errorMessage, actions } = props;
+    const {
+        view, isOptionsOpen, loadingMessage, errorMessage, actions
+    } = props;
     // Render a component based on the current view
     let renderView = '';
     switch (view) {
