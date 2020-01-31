@@ -26,7 +26,7 @@ const GameOptions = (props) => {
 
     return (
         <div className="game-options">
-            {renderOptions}
+            {/* {renderOptions} */}
         </div>
     );
 };
