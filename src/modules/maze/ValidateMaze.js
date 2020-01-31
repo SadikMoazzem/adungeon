@@ -1,11 +1,13 @@
-import { ROOM_TYPES } from './constants';
-
+/**
+ * Returns a function that validates a Maze config and returns the available exits.
+ */
 import KeyError from './KeyError';
+import { ROOM_TYPES } from './constants';
 
 function findEntrances(map) {
     let startId;
     for (const roomId in map) {
-        if (map[roomId].roomType === ROOM_TYPES.ENTRANCE) {
+        if (map[roomId].type === ROOM_TYPES.ENTRANCE) {
             startId = roomId;
         }
     }
@@ -32,25 +34,26 @@ function findWaysToExit(exitIdOccurrences) {
 }
 
 function checkRoom(currentRoom, map, exitID) {
-    if (currentRoom.roomType === ROOM_TYPES.EXIT) {
-        exitID.push(currentRoom.roomId);
+    if (currentRoom.type === ROOM_TYPES.EXIT) {
+        exitID.push(currentRoom.id);
         return exitID;
     } else {
-        if (!currentRoom.config.n.hasBeenChecked && currentRoom.config.n.next) {
-            map[currentRoom.roomId].config.n.hasBeenChecked = true;
-            exitID.concat(checkRoom(map[currentRoom.config.n.next], map, exitID));
+        if (!currentRoom.passages.n.hasBeenChecked && currentRoom.passages.n.next) {
+            map[currentRoom.id].updatePassage('n', true);
+            exitID.concat(checkRoom(map[currentRoom.passages.n.next], map, exitID));
         }
-        if (!currentRoom.config.s.hasBeenChecked && currentRoom.config.s.next) {
-            map[currentRoom.roomId].config.s.hasBeenChecked = true;
-            exitID.concat(checkRoom(map[currentRoom.config.s.next], map, exitID));
+        if (!currentRoom.passages.s.hasBeenChecked && currentRoom.passages.s.next) {
+            map[currentRoom.id].updatePassage('s', true);
+
+            exitID.concat(checkRoom(map[currentRoom.passages.s.next], map, exitID));
         }
-        if (!currentRoom.config.e.hasBeenChecked && currentRoom.config.e.next) {
-            map[currentRoom.roomId].config.e.hasBeenChecked = true;
-            exitID.concat(checkRoom(map[currentRoom.config.e.next], map, exitID));
+        if (!currentRoom.passages.e.hasBeenChecked && currentRoom.passages.e.next) {
+            map[currentRoom.id].updatePassage('e', true);
+            exitID.concat(checkRoom(map[currentRoom.passages.e.next], map, exitID));
         }
-        if (!currentRoom.config.w.hasBeenChecked && currentRoom.config.w.next) {
-            map[currentRoom.roomId].config.w.hasBeenChecked = true;
-            exitID.concat(checkRoom(map[currentRoom.config.w.next], map, exitID));
+        if (!currentRoom.passages.w.hasBeenChecked && currentRoom.passages.w.next) {
+            map[currentRoom.id].updatePassage('w', true);
+            exitID.concat(checkRoom(map[currentRoom.passages.w.next], map, exitID));
         }
         return exitID;
     }

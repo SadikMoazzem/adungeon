@@ -10,9 +10,8 @@ const initialState = {
         currentRoomId: null,
         mapId: null,
     },
-    mazeConfig: {
-
-    },
+    mazeConfig: {},
+    playerConfig: {},
 };
 
 export function app(state = initialState, action) {
@@ -46,7 +45,12 @@ export function app(state = initialState, action) {
             return {
                 ...state,
                 mazeConfig: action.maze,
-            }
+            };
+        case moduleActions.PLAYER_LOAD:
+            return {
+                ...state,
+                playerConfig: action.player,
+            };
         default:
             return state;
     }

@@ -4,6 +4,7 @@ export const LOADING_MESSAGE_UPDATE = 'LOADING_MESSAGE_UPDATE';
 export const ERROR_MESSAGE_UPDATE = 'ERROR_MESSAGE_UPDATE';
 export const GAME_CONFIG_UPDATE = 'GAME_CONFIG_UPDATE';
 export const MAZE_GAME_LOAD = 'MAZE_GAME_LOAD';
+export const PLAYER_LOAD = 'PLAYER_LOAD';
 
 export function viewUpdate(newView) {
     return {
@@ -44,5 +45,12 @@ export function loadMazeGame(maze) {
     return {
         type: 'MAZE_GAME_LOAD',
         maze,
+    };
+}
+
+export function loadPlayer(player) {
+    return {
+        type: 'PLAYER_LOAD',
+        player,
     };
 }

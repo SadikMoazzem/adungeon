@@ -3,6 +3,7 @@
 @import 'error-screen.scss';
 @import 'main-menu.scss';
 @import 'options-menu.scss';
+@import 'maze-container.scss';
 
 .app {
     position: fixed;
@@ -33,91 +34,5 @@
             transform: translateX(-50%);
         }
 
-    }
-
-    .app--maze-container {
-        margin: 24px;
-        margin-top: 0px;
-        height: 85vh;
-        background-color: white;
-        border-radius: 4px;
-        position: relative;
-        display: grid;
-        grid-template-columns: 80% 20%;
-
-        .maze--view {
-            position: relative;
-            height: 500px;
-            width: 90%;
-            max-width: 900px;
-            margin: 24px 0px 12px 24px;
-            overflow: hidden;
-            border-radius: 6px;
-
-            > img {
-                width: 100%;
-                height: 100%;
-            }
-        }
-
-        .maze--minimap {
-            display: grid;
-            align-items: end;
-            justify-items: end;
-            
-            .mini-map{
-                width: 100%;
-                max-width: 300px;
-                // 55px per row
-                height: 220px;
-                background-color: #f2f2f2;
-                border: 2px solid #d9d9d9;
-                border-radius: 4px;
-                margin: 10px;
-
-                .row .room {
-                    height: 40px;
-                    border-radius: 4px;
-                    width: 60px;
-                    background-color: white;
-                    border: 1px solid black;
-                    margin: 6px;
-                    position: relative;
-
-                    .passage {
-                        position: absolute;
-                        transform: translateX(-50%);
-                        width: 12px;
-                        height: 12px;
-                        background-color: black;
-                        margin: 0 auto;
-
-                        &.top {
-                            // top
-                            top: -12px;
-                            left: 50%;
-                        }
-    
-                        &.right {
-                            // right
-                            top:40%;
-                            right: -18px;
-                        }
-    
-                        &.bottom {
-                            // bottom
-                            bottom: -13px;
-                            left: 50%;
-                        }
-    
-                        &.left {
-                            // left
-                            top:40%;
-                            left: -12%;
-                        }
-                    }
-                }
-            }
-        }
     }
 }

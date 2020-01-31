@@ -1,0 +1,119 @@
+.app .app--maze-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    .game {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 1px solid;
+        border-radius: 4px;
+        height: 60vh;
+        width: 60vw;
+        display: grid;
+        grid-template-columns: 70% 30%;
+        overflow: hidden;
+
+        .game--view {
+            // width: 100%;
+            // height: 100%;
+            // background-color: red;
+            // padding: 18px;
+            display: grid;
+            grid-template-rows: 70% 30%;
+
+            .game-view--visual {
+                background-color: blue;
+                position: relative;
+
+                > img {
+                    height: 100%;
+                    width: 100%;
+                }
+            }
+
+            .game-view--options {
+                background-color: green;
+            }
+        }
+
+        .game--stats {
+            width: 100%;
+            height: 100%;
+            background-color: red;
+            // padding: 18px;
+            display: grid;
+            grid-template-rows: 60% 40%;
+
+            .game-stats--stats {
+                background-color: red;
+            }
+
+            .game-stats--minimap {
+                background-color: indigo;
+                display: grid;
+                align-items: end;
+                justify-items: end;
+
+                .mini-map{
+                    width: 100%;
+                    // max-width: 300px;
+                    // 55px per row
+                    height: 100%;
+                    background-color: blue;
+                    display: grid;
+                    justify-items: center;
+                    align-items: center;
+                    // margin: 10px;
+
+                    .map {
+                        .row .room {
+                            height: 40px;
+                            border-radius: 4px;
+                            width: 60px;
+                            background-color: white;
+                            border: 1px solid lightgray;
+                            margin: 6px;
+                            position: relative;
+        
+                            .passage {
+                                position: absolute;
+                                transform: translateX(-50%);
+                                width: 12px;
+                                height: 12px;
+                                background-color: white;
+                                margin: 0 auto;
+        
+                                &.top {
+                                    // top
+                                    top: -12px;
+                                    left: 50%;
+                                }
+            
+                                &.right {
+                                    // right
+                                    top:40%;
+                                    right: -18px;
+                                }
+            
+                                &.bottom {
+                                    // bottom
+                                    bottom: -13px;
+                                    left: 50%;
+                                }
+            
+                                &.left {
+                                    // left
+                                    top:40%;
+                                    left: -12%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

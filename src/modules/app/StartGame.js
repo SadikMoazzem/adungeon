@@ -1,4 +1,5 @@
 import Maze from '../maze/Maze';
+import PlayerFactory from '../maze/PlayerFactory';
 
 import { VIEW } from './constants';
 import * as appActions from './actions';
@@ -19,8 +20,15 @@ export default function StartGame(dispatch, mapName, playerName) {
                             dispatch(appActions.updateLoadingMessage(mazeIsValid.msg));
                             setTimeout(() => {
                                 dispatch(appActions.updateLoadingMessage('Starting Game'));
-                                const game = new Maze(mapName);
-                                dispatch(appActions.loadMazeGame(game.getMaze));
+                                setTimeout(() => {
+                                    const game = new Maze(mapName);
+                                    const startRoom = game.getStartRoom;
+                                    const player = PlayerFactory({ name: playerName });
+                                    dispatch(appActions.loadMazeGame(game));
+                                    dispatch(appActions.updateGameConfig({ currentRoomId: startRoom }));
+                                    dispatch(appActions.loadPlayer(player));
+                                    dispatch(appActions.viewUpdate(VIEW.GAME_VIEW));
+                                }, 1000);
                             }, 1500);
                         });
                 });

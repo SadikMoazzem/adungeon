@@ -21,22 +21,22 @@ export default class Minimap extends Component {
             const roomObj = maze.getRoomObj(i);
             const classOps = [];
 
-            if (roomObj.config.n.next) {
+            if (roomObj.passages.n.next) {
                 classOps.push(
                     <div className="passage top" />,
                 );
             }
-            if (roomObj.config.s.next) {
+            if (roomObj.passages.s.next) {
                 classOps.push(
                     <div className="passage bottom " />,
                 );
             }
-            if (roomObj.config.e.next) {
+            if (roomObj.passages.e.next) {
                 classOps.push(
                     <div className="passage right " />,
                 );
             }
-            if (roomObj.config.w.next) {
+            if (roomObj.passages.w.next) {
                 classOps.push(
                     <div className="passage left " />,
                 );
@@ -62,7 +62,9 @@ export default class Minimap extends Component {
 
         return (
             <div className="mini-map">
-                {rows}
+                <div className="map">
+                    {rows}
+                </div>
             </div>
         );
     }

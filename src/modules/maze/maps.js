@@ -79,7 +79,7 @@ export const map = {
             roomType: ROOM_TYPES.DEFAULT,
             north: 0,
             east: 10,
-            south: 0,
+            south: 13,
             west: 0,
         },
         10: {
@@ -108,8 +108,8 @@ export const map = {
         },
         13: {
             roomId: 13,
-            roomType: ROOM_TYPES.DEFAULT,
-            north: 0,
+            roomType: ROOM_TYPES.ENTRANCE,
+            north: 9,
             east: 0,
             south: 0,
             west: 0,

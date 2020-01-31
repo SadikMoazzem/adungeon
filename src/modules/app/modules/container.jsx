@@ -9,6 +9,7 @@ import LoadingScreen from './sub-modules/LoadingScreen';
 import ErrorScreen from './sub-modules/ErrorScreen';
 
 import { VIEW } from '../constants';
+import MazeContainer from './MazeContainer';
 
 const mapStateToProps = (state) => ({
     view: state.app.currentView,
@@ -32,6 +33,9 @@ const App = (props) => {
     // Render a component based on the current view
     let renderView = '';
     switch (view) {
+        case VIEW.GAME_VIEW:
+            renderView = <MazeContainer />;
+            break;
         case VIEW.ERROR:
             renderView = <ErrorScreen errorMessage={errorMessage} viewUpdate={actions.viewUpdate} />;
             break;
@@ -46,14 +50,14 @@ const App = (props) => {
 
     return (
         <div className="app">
-            { view === VIEW.MAIN_MENU || view === VIEW.OPTIONS_MENU ? (
+            {/* { view === VIEW.MAIN_MENU || view === VIEW.OPTIONS_MENU ? (
                 <header>
                     aDungeon
                     <span className="sub-text">
                         By Sadik Moazzem
                     </span>
                 </header>
-            ) : ''}
+            ) : ''} */}
             { renderView }
             { isOptionsOpen ? <OptionsMenu /> : ''}
         </div>
