@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 
 import * as moduleActions from '../../actions';
 import * as mazeConfig from '../../../maze/constants';
-import { render } from 'node-sass';
 
 const mapDispatchToProps = (dispatch) => ({
     actions: bindActionCreators(moduleActions, dispatch),
