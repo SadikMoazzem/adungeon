@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export default class Minimap extends Component {
     render() {
-        const { maze } = this.props;
+        const { maze, currentRoomId, taggedRooms } = this.props;
 
         // For each row we dynamically create css for it
         let gridConfig = '';
@@ -19,6 +19,7 @@ export default class Minimap extends Component {
         const rooms = [];
         for (const i in maze.getMaze) {
             const roomObj = maze.getRoomObj(i);
+            let activeClass = '';
             const classOps = [];
 
             if (roomObj.passages.n.next) {
@@ -41,8 +42,12 @@ export default class Minimap extends Component {
                     <div className="passage left " />,
                 );
             }
+
+            if (currentRoomId === i || taggedRooms.includes(i)) {
+                activeClass = 'show';
+            }
             rooms.push(
-                <div className={`room ${classOps}`} key={i} ref={i}>
+                <div className={`room ${activeClass}`} key={i} ref={i}>
                     {classOps}
                 </div>,
             );

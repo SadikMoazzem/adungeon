@@ -83,6 +83,66 @@ export const WEAPON_CONFIGS = {
     },
 };
 
+export const PLAYER_ACTIONS = {
+    TREASURE_WEALTH_GAIN: 'TREASURE_WEALTH_GAIN',
+    MONSTER_WEALTH_GAIN: 'MONSTER_WEALTH_GAIN',
+    MONSTER_ATTACK: 'MONSTER_ATTACK',
+    MARK_ROOM: 'MARK_ROOM',
+    TRAVEL_ROOM: 'TRAVEL_ROOM',
+};
+
+export const ACTION_OPTIONS = {
+    MOVE_NORTH: {
+        view: 'Go North',
+        Action: PLAYER_ACTIONS.TRAVEL_ROOM,
+    },
+    MOVE_SOUTH: {
+        view: 'Go South',
+        Action: PLAYER_ACTIONS.TRAVEL_ROOM,
+    },
+    MOVE_EAST: {
+        view: 'Go East',
+        Action: PLAYER_ACTIONS.TRAVEL_ROOM,
+    },
+    MOVE_WEST: {
+        view: 'Go West',
+        Action: PLAYER_ACTIONS.TRAVEL_ROOM,
+    },
+    TAG_ROOM: {
+        view: 'Tag room',
+        Action: PLAYER_ACTIONS.MARK_ROOM,
+    },
+    FIGHT_ENEMY: {
+        view: 'Fight Enemy',
+        Action: PLAYER_ACTIONS.ENEMY_ATTACK,
+    },
+    LOOT_ENEMY: {
+        view: 'Loot Enemy',
+        Action: PLAYER_ACTIONS.ENEMY_WEALTH_GAIN,
+    },
+    TAKE_TREASURE: {
+        view: 'Take Treasure',
+        Action: PLAYER_ACTIONS.TREASURE_WEALTH_GAIN,
+    },
+};
+
+export const DEFAULT_ROOM_ACTIONS = [
+    ACTION_OPTIONS.MOVE_NORTH,
+    ACTION_OPTIONS.MOVE_SOUTH,
+    ACTION_OPTIONS.MOVE_EAST,
+    ACTION_OPTIONS.MOVE_WEST,
+    ACTION_OPTIONS.TAG_ROOM,
+];
+
+export const ENEMY_ROOM_ACTIONS = [
+    ACTION_OPTIONS.FIGHT_ENEMY,
+    ACTION_OPTIONS.LOOT_ENEMY,
+];
+
+export const TREASURE_ROOM_ACTION = [
+    ACTION_OPTIONS.TAKE_TREASURE,
+];
+
 // Testing configs
 
 export const ROOM_VALIDATION = [

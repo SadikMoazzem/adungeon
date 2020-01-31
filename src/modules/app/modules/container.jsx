@@ -50,14 +50,14 @@ const App = (props) => {
 
     return (
         <div className="app">
-            {/* { view === VIEW.MAIN_MENU || view === VIEW.OPTIONS_MENU ? (
+            { view === VIEW.MAIN_MENU || view === VIEW.OPTIONS_MENU ? (
                 <header>
                     aDungeon
                     <span className="sub-text">
                         By Sadik Moazzem
                     </span>
                 </header>
-            ) : ''} */}
+            ) : ''}
             { renderView }
             { isOptionsOpen ? <OptionsMenu /> : ''}
         </div>
