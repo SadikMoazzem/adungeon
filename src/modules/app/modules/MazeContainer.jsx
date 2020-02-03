@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import Minimap from './sub-modules/Minimap';
 import * as moduleActions from '../actions';
 import GameOptions from './sub-modules/GameOptions';
+import GameStats from './sub-modules/GameStats';
 
 const mapStateToProps = (state) => ({
     globalState: state,
@@ -19,14 +20,10 @@ const mapDispatchToProps = (dispatch) => ({
 
 const MazeContainer = (props) => {
     const { gameConfig, mazeConfig, playerConfig } = props;
+
+    console.log(props);
     return (
         <div className="app--maze-container">
-            {/* <div className="maze--view">
-                <img src={maze.getMaze[1].background} alt="view"/>
-            </div>
-            <div className="maze--minimap">
-                <Minimap maze={maze} />
-            </div> */}
             <div className="game">
                 <div className="game--view">
                     <div className="game-view--visual">
@@ -38,10 +35,10 @@ const MazeContainer = (props) => {
                 </div>
                 <div className="game--stats">
                     <div className="game-stats--stats">
-
+                        <GameStats />
                     </div>
                     <div className="game-stats--minimap">
-                        <Minimap maze={mazeConfig} currentRoomId={gameConfig.currentRoomId} taggedRooms={playerConfig.taggedRooms} />
+                        <Minimap maze={mazeConfig} />
                     </div>
                 </div>
             </div>

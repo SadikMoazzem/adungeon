@@ -70,7 +70,7 @@ export default class Maze {
                 } else {
                     res({ msg: 'Map Found' });
                 }
-            }, 1300);
+            }, 1000);
         });
         return promise;
     }
@@ -83,7 +83,7 @@ export default class Maze {
                 } else {
                     res({ msg: 'Rooms are valid!' });
                 }
-            }, 1300);
+            }, 1000);
         });
         return promise;
     }
@@ -101,7 +101,7 @@ export default class Maze {
                 } else {
                     err(ReferenceError('No passages to exit found'));
                 }
-            }, 1300);
+            }, 1000);
         });
         return promise;
     }

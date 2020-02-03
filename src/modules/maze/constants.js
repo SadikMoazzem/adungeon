@@ -10,7 +10,7 @@ export const BACKGROUNDS = {
     DEFAULT: 'dungeon_backgrounds/default.jpg',
     ENTRANCE: 'dungeon_backgrounds/entrance.jpg',
     EXIT: 'dungeon_backgrounds/exit.jpg',
-    TREASURE: 'dungeon_backgrounds/treasure',
+    TREASURE: 'dungeon_backgrounds/treasure.jpg',
     ENEMY: 'dungeon_backgrounds/enemy.jpg',
 };
 
@@ -93,20 +93,24 @@ export const PLAYER_ACTIONS = {
 
 export const ACTION_OPTIONS = {
     MOVE_NORTH: {
-        view: 'Go North',
+        view: 'Move Up',
         Action: PLAYER_ACTIONS.TRAVEL_ROOM,
+        direction: 'n',
     },
     MOVE_SOUTH: {
-        view: 'Go South',
+        view: 'Move Down',
         Action: PLAYER_ACTIONS.TRAVEL_ROOM,
+        direction: 's',
     },
     MOVE_EAST: {
-        view: 'Go East',
+        view: 'Move Right',
         Action: PLAYER_ACTIONS.TRAVEL_ROOM,
+        direction: 'e',
     },
     MOVE_WEST: {
-        view: 'Go West',
+        view: 'Move Left',
         Action: PLAYER_ACTIONS.TRAVEL_ROOM,
+        direction: 'w',
     },
     TAG_ROOM: {
         view: 'Tag room',
@@ -126,22 +130,37 @@ export const ACTION_OPTIONS = {
     },
 };
 
-export const DEFAULT_ROOM_ACTIONS = [
-    ACTION_OPTIONS.MOVE_NORTH,
-    ACTION_OPTIONS.MOVE_SOUTH,
-    ACTION_OPTIONS.MOVE_EAST,
-    ACTION_OPTIONS.MOVE_WEST,
-    ACTION_OPTIONS.TAG_ROOM,
-];
 
-export const ENEMY_ROOM_ACTIONS = [
-    ACTION_OPTIONS.FIGHT_ENEMY,
-    ACTION_OPTIONS.LOOT_ENEMY,
-];
+export const ACTION_TIPS = {
+    Move: 'Move to another room',
+    Tag: 'Save the room',
+    Fight: 'Fight the monster',
+    Loot: 'Take the loot',
+};
 
-export const TREASURE_ROOM_ACTION = [
-    ACTION_OPTIONS.TAKE_TREASURE,
-];
+export const DEFAULT_ROOM_ACTIONS = {
+    Move: [
+        ACTION_OPTIONS.MOVE_NORTH,
+        ACTION_OPTIONS.MOVE_SOUTH,
+        ACTION_OPTIONS.MOVE_EAST,
+        ACTION_OPTIONS.MOVE_WEST,
+    ],
+    Tag: [
+        ACTION_OPTIONS.TAG_ROOM,
+    ],
+};
+
+export const ENEMY_ROOM_ACTIONS = {
+    Fight: [
+        ACTION_OPTIONS.FIGHT_ENEMY,
+    ],
+};
+
+export const TREASURE_ROOM_ACTION = {
+    Loot: [
+        ACTION_OPTIONS.TAKE_TREASURE,
+    ],
+};
 
 // Testing configs
 

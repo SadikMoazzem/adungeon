@@ -62,9 +62,9 @@ export const map = {
             roomId: 7,
             roomType: ROOM_TYPES.ENEMY,
             north: 0,
-            east: 6,
+            east: 8,
             south: 0,
-            west: 8,
+            west: 6,
         },
         8: {
             roomId: 8,

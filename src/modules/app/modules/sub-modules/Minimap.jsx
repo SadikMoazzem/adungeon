@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-export default class Minimap extends Component {
+import { ROOM_TYPES } from '../../../maze/constants';
+
+const mapStateToProps = (state) => ({
+    currentRoomId: state.app.gameConfig.currentRoomId,
+    playerConfig: state.app.playerConfig,
+});
+
+class Minimap extends Component {
     render() {
-        const { maze, currentRoomId, taggedRooms } = this.props;
+        const { maze, currentRoomId, playerConfig } = this.props;
+
+        console.log(this.props);
 
         // For each row we dynamically create css for it
         let gridConfig = '';
@@ -24,28 +34,37 @@ export default class Minimap extends Component {
 
             if (roomObj.passages.n.next) {
                 classOps.push(
-                    <div className="passage top" />,
+                    <div className="passage top" key="top" />,
                 );
             }
             if (roomObj.passages.s.next) {
                 classOps.push(
-                    <div className="passage bottom " />,
+                    <div className="passage bottom " key="bottom" />,
                 );
             }
             if (roomObj.passages.e.next) {
                 classOps.push(
-                    <div className="passage right " />,
+                    <div className="passage right " key="right" />,
                 );
             }
             if (roomObj.passages.w.next) {
                 classOps.push(
-                    <div className="passage left " />,
+                    <div className="passage left " key="left" />,
                 );
             }
 
-            if (currentRoomId === i || taggedRooms.includes(i)) {
-                activeClass = 'show';
+            if (currentRoomId === i || playerConfig.taggedRooms.includes(i)) {
+                activeClass = 'show ';
+
+                if (currentRoomId === i) {
+                    activeClass += 'current ';
+                }
             }
+
+            if (roomObj.type === ROOM_TYPES.EXIT) {
+                activeClass += 'exit ';
+            }
+
             rooms.push(
                 <div className={`room ${activeClass}`} key={i} ref={i}>
                     {classOps}
@@ -55,13 +74,15 @@ export default class Minimap extends Component {
 
         // We split the rooms by the columns specified in the map config
         const rows = [];
+        let count = 0;
         while (rooms.length > 0) {
             const chunk = rooms.splice(0, maze.config.columns);
             rows.push(
-                <div className="row" style={rowStyle}>
+                <div className="row" style={rowStyle} key={count}>
                     { chunk }
                 </div>,
             );
+            count += 1;
         }
 
 
@@ -85,3 +106,5 @@ Minimap.propTypes = {
         }),
     }).isRequired,
 };
+
+export default connect(mapStateToProps, null)(Minimap);

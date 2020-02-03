@@ -6,6 +6,7 @@ const initialState = {
     isOptionsOpen: false,
     loadingMessage: 'Checking Maze Config...',
     errorMessage: '',
+    gameLog: ['Game Loaded!'],
     gameConfig: {
         currentRoomId: null,
         mapId: null,
@@ -50,6 +51,11 @@ export function app(state = initialState, action) {
             return {
                 ...state,
                 playerConfig: action.player,
+            };
+        case moduleActions.GAME_LOG_MESSAGE:
+            return {
+                ...state,
+                gameLog: state.gameLog.concat(action.log),
             };
         default:
             return state;

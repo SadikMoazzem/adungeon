@@ -30,12 +30,12 @@ const createRoom = ({
             case ROOM_TYPES.ENEMY:
                 this.enemy = getRandomValue(ENEMY_TYPES);
                 this.background = BACKGROUNDS.ENEMY;
-                this.actions = this.actions.concat(ENEMY_ROOM_ACTIONS);
+                this.actions = Object.assign({}, this.actions, ENEMY_ROOM_ACTIONS);
                 break;
             case ROOM_TYPES.TREASURE:
                 this.treasure = getRandomValue(TREASURE_TYPES);
                 this.background = BACKGROUNDS.TREASURE;
-                this.actions = this.actions.concat(TREASURE_ROOM_ACTION);
+                this.actions = Object.assign({}, this.actions, TREASURE_ROOM_ACTION);
                 break;
             case ROOM_TYPES.EXIT:
                 this.background = BACKGROUNDS.EXIT;
