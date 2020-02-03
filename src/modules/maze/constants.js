@@ -84,8 +84,7 @@ export const WEAPON_CONFIGS = {
 };
 
 export const PLAYER_ACTIONS = {
-    TREASURE_WEALTH_GAIN: 'TREASURE_WEALTH_GAIN',
-    MONSTER_WEALTH_GAIN: 'MONSTER_WEALTH_GAIN',
+    WEALTH_GAIN: 'WEALTH_GAIN',
     MONSTER_ATTACK: 'MONSTER_ATTACK',
     MARK_ROOM: 'MARK_ROOM',
     TRAVEL_ROOM: 'TRAVEL_ROOM',
@@ -94,42 +93,41 @@ export const PLAYER_ACTIONS = {
 export const ACTION_OPTIONS = {
     MOVE_NORTH: {
         view: 'Move Up',
-        Action: PLAYER_ACTIONS.TRAVEL_ROOM,
+        action: PLAYER_ACTIONS.TRAVEL_ROOM,
         direction: 'n',
     },
     MOVE_SOUTH: {
         view: 'Move Down',
-        Action: PLAYER_ACTIONS.TRAVEL_ROOM,
+        action: PLAYER_ACTIONS.TRAVEL_ROOM,
         direction: 's',
     },
     MOVE_EAST: {
         view: 'Move Right',
-        Action: PLAYER_ACTIONS.TRAVEL_ROOM,
+        action: PLAYER_ACTIONS.TRAVEL_ROOM,
         direction: 'e',
     },
     MOVE_WEST: {
         view: 'Move Left',
-        Action: PLAYER_ACTIONS.TRAVEL_ROOM,
+        action: PLAYER_ACTIONS.TRAVEL_ROOM,
         direction: 'w',
     },
     TAG_ROOM: {
         view: 'Tag room',
-        Action: PLAYER_ACTIONS.MARK_ROOM,
+        action: PLAYER_ACTIONS.MARK_ROOM,
     },
     FIGHT_ENEMY: {
         view: 'Fight Enemy',
-        Action: PLAYER_ACTIONS.ENEMY_ATTACK,
+        action: PLAYER_ACTIONS.ENEMY_ATTACK,
     },
     LOOT_ENEMY: {
         view: 'Loot Enemy',
-        Action: PLAYER_ACTIONS.ENEMY_WEALTH_GAIN,
+        action: PLAYER_ACTIONS.WEALTH_GAIN,
     },
     TAKE_TREASURE: {
         view: 'Take Treasure',
-        Action: PLAYER_ACTIONS.TREASURE_WEALTH_GAIN,
+        action: PLAYER_ACTIONS.WEALTH_GAIN,
     },
 };
-
 
 export const ACTION_TIPS = {
     Move: 'Move to another room',
@@ -148,15 +146,9 @@ export const DEFAULT_ROOM_ACTIONS = {
     Tag: [
         ACTION_OPTIONS.TAG_ROOM,
     ],
-};
-
-export const ENEMY_ROOM_ACTIONS = {
     Fight: [
         ACTION_OPTIONS.FIGHT_ENEMY,
     ],
-};
-
-export const TREASURE_ROOM_ACTION = {
     Loot: [
         ACTION_OPTIONS.TAKE_TREASURE,
     ],

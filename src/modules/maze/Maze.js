@@ -10,11 +10,12 @@ export default class Maze {
     constructor(mapID) {
         this.mapID = mapID;
         this.config = maps[this.mapID].config;
+        this.maze = {};
     }
 
-    get getMaze() {
-        return this.createMaze();
-    }
+    // set getMaze() {
+    //     return this.createMaze();
+    // }
 
     get getStartRoom() {
         return this.findStartRoom();
@@ -23,8 +24,8 @@ export default class Maze {
 
     findStartRoom() {
         const startIds = [];
-        for (const roomId in this.getMaze) {
-            if (this.getMaze[roomId].type === ROOM_TYPES.ENTRANCE) {
+        for (const roomId in this.maze) {
+            if (this.maze[roomId].type === ROOM_TYPES.ENTRANCE) {
                 startIds.push(roomId);
             }
         }
@@ -36,12 +37,25 @@ export default class Maze {
      * Gets a room object by ID
      */
     getRoomObj(roomId) {
-        if (!this.getMaze[roomId]) {
+        if (!this.maze[roomId]) {
             console.error(`Room with ID ${roomId} does not exist`);
             return;
         }
-        return this.getMaze[roomId];
+        return this.maze[roomId];
     }
+
+
+    updateMaze(newMazeObj) {
+        const maze = {};
+
+        for (const [roomId, config] of Object.entries(newMazeObj)) {
+            maze[roomId] = RoomFactory(config);
+        }
+        this.maze = maze;
+
+        return this;
+    }
+
 
     /**
      * Creates an instance of all of the rooms for the maze
@@ -56,7 +70,9 @@ export default class Maze {
             maze[roomId].setPassages(config);
         }
 
-        return maze;
+        this.maze = maze;
+
+        // return maze;
     }
 
     /**
@@ -91,10 +107,12 @@ export default class Maze {
     static validateMaze(mapID) {
         const promise = new Promise((res, err) => {
             setTimeout(() => {
-                const exits = ValidateMaze(new Maze(mapID).getMaze);
+                const mazeObj = new Maze(mapID);
+                mazeObj.createMaze();
+                const exits = ValidateMaze(mazeObj.maze);
 
                 if (exits.exitIds.length === 1) {
-                    console.log(`Successfully found ${exits.counts[exits.exitIds[0]]} ways to go to the exit room found at ${exits.exitIds[0]}`);
+                    console.log(`Successfully found ${exits.counts[exits.exitIds[0]]} way to go to the exit room found at ${exits.exitIds[0]}`);
                     res({ msg: 'Validated Maze config' });
                 } else if (exits.exitIds.length > 1) {
                     err(ReferenceError('Found more than one exit room!'));

@@ -13,8 +13,6 @@ class Minimap extends Component {
     render() {
         const { maze, currentRoomId, playerConfig } = this.props;
 
-        console.log(this.props);
-
         // For each row we dynamically create css for it
         let gridConfig = '';
         for (let i = 0; i < maze.config.columns; i += 1) {
@@ -27,7 +25,7 @@ class Minimap extends Component {
 
         // Create all the rooms for the maze with the passages they need
         const rooms = [];
-        for (const i in maze.getMaze) {
+        for (const i in maze.maze) {
             const roomObj = maze.getRoomObj(i);
             let activeClass = '';
             const classOps = [];
@@ -98,7 +96,7 @@ class Minimap extends Component {
 
 Minimap.propTypes = {
     maze: PropTypes.shape({
-        getMaze: PropTypes.shape({}).isRequired,
+        maze: PropTypes.shape({}).isRequired,
         getRoomObj: PropTypes.func.isRequired,
         config: PropTypes.shape({
             rows: PropTypes.number,

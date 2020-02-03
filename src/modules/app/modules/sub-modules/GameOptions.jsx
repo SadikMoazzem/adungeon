@@ -5,16 +5,27 @@ import { bindActionCreators } from 'redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
+import PlayerActionHandler from '../../PlayerActionHandler';
 import * as moduleActions from '../../actions';
 import * as mazeConfig from '../../../maze/constants';
 
 const mapDispatchToProps = (dispatch) => ({
     actions: bindActionCreators(moduleActions, dispatch),
+    dispatch,
+});
+
+const mapStateToProps = (state) => ({
+    gameConfig: state.app.gameConfig,
+    maze: state.app.mazeConfig.maze,
+    playerConfig: state.app.playerConfig,
 });
 
 const GameOptions = (props) => {
     // Create State to control the view of the component
-    const { currentRoom, actions } = props;
+    const {
+        gameConfig, maze, playerConfig, dispatch
+    } = props;
+    const currentRoom = maze[gameConfig.currentRoomId];
 
     // Create State to control the view of the component
     const [currentOption, updatecurrentOption] = useState('');
@@ -31,6 +42,7 @@ const GameOptions = (props) => {
                 renderOptions.push(
                     <div
                         className="game-action"
+                        key={option}
                         onClick={() => {
                             updatepreviousOption(currentOption);
                             updatecurrentOption(option);
@@ -47,14 +59,55 @@ const GameOptions = (props) => {
         case 'Move':
             renderOptions = [];
             for (const option in currentRoom.actions[currentOption]) {
-
-                if (currentRoom.passages[currentRoom.actions[currentOption][option].direction].next) {
+                renderOptions.push(
+                    <div
+                        className="game-action sub-option"
+                        key={option}
+                        onClick={() => {
+                            PlayerActionHandler(dispatch, currentRoom.actions[currentOption][option].action, {
+                                roomId: currentRoom.id,
+                                nextRoomId: currentRoom.passages[currentRoom.actions[currentOption][option].direction].next.toString(),
+                                direction: currentRoom.actions[currentOption][option].direction,
+                            }, maze);
+                            updatecurrentOption('');
+                            updatepreviousOption('');
+                        }}
+                    >
+                        { currentRoom.actions[currentOption][option].view }
+                    </div>,
+                );
+            }
+            break;
+        case 'Tag':
+            renderOptions = [];
+            for (const option in currentRoom.actions[currentOption]) {
+                renderOptions.push(
+                    <div
+                        key={option}
+                        className="game-action sub-option"
+                        onClick={() => {
+                            PlayerActionHandler(dispatch, currentRoom.actions[currentOption][option].action,{ roomId: currentRoom.id }, {}, playerConfig);
+                            updatecurrentOption('');
+                            updatepreviousOption('');
+                        }}
+                    >
+                        { currentRoom.actions[currentOption][option].view }
+                    </div>,
+                );
+            }
+            break;
+        case 'Loot':
+            renderOptions = [];
+            if (currentRoom.treasure) {
+                for (const option in currentRoom.actions[currentOption]) {
                     renderOptions.push(
                         <div
                             className="game-action sub-option"
+                            key={option}
                             onClick={() => {
-                                actions.updateGameConfig({ currentRoomId: currentRoom.passages[currentRoom.actions[currentOption][option].direction].next.toString() });
-                                actions.logGame(`Player action : ${currentRoom.actions[currentOption][option].view}`);
+                                PlayerActionHandler(dispatch, currentRoom.actions[currentOption][option].action,{
+                                    roomId: currentRoom.id, value: mazeConfig.TREASURE_CONFIGS[currentRoom.treasure].TREASURE,
+                                }, {}, playerConfig);
                                 updatecurrentOption('');
                                 updatepreviousOption('');
                             }}
@@ -69,7 +122,7 @@ const GameOptions = (props) => {
             renderOptions = [];
             for (const option in currentRoom.actions[currentOption]) {
                 renderOptions.push(
-                    <div className="game-action sub-option">
+                    <div className="game-action sub-option" key={option}>
                         { currentRoom.actions[currentOption][option].view }
                     </div>,
                 );
@@ -95,4 +148,4 @@ const GameOptions = (props) => {
     );
 };
 
-export default connect(null, mapDispatchToProps)(GameOptions);
+export default connect(mapStateToProps, mapDispatchToProps)(GameOptions);

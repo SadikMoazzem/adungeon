@@ -3,7 +3,7 @@
  */
 
 const createPlayer = ({
-    name, health = 100, wealth = 0, weapon = '', taggedRooms = [],
+    name, health = 20, wealth = 0, weapon = '', taggedRooms = [],
 }) => ({
     name,
     health,
@@ -12,15 +12,15 @@ const createPlayer = ({
     taggedRooms,
     updateHealth(damage) {
         this.health -= damage;
-        return this;
+        return Object.assign({}, this);
     },
     updateWealth(difference) {
         this.wealth += difference;
-        return this;
+        return Object.assign({}, this);
     },
     addTaggedRoom(roomId) {
         this.taggedRooms.push(roomId);
-        return this;
+        return Object.assign({}, this);
     },
 });
 

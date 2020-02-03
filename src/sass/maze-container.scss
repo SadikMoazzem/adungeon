@@ -8,14 +8,12 @@
         top: 45%;
         left: 45%;
         transform: translate(-50%, -50%);
-
         border-radius: 4px;
         height: 60vh;
         width: 60vw;
         display: grid;
         grid-template-columns: 70% 30%;
         column-gap: 120px;
-
 
         .game--view {
             display: grid;
@@ -25,12 +23,26 @@
                 height: 100%;
                 position: relative;
 
-                > img {
+                .background {
                     height: 450px;
                     width: 100%;
                     border-radius: 6px;
                     border-bottom-left-radius: 0px;
                     border-bottom-right-radius: 0px;
+                }
+
+                .enemy, 
+                .treasure {
+                    position: absolute;
+                    bottom: 0px;
+                    height: 60%;
+                    >img{
+                        height: 100%;
+                    }
+                }
+
+                .treasure {
+                    right: 30px;
                 }
             }
 

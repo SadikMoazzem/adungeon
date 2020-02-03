@@ -1,7 +1,6 @@
 /**
  * Returns a function that validates a Maze config and returns the available exits.
  */
-import KeyError from './KeyError';
 import { ROOM_TYPES } from './constants';
 
 function findEntrances(map) {
@@ -13,7 +12,7 @@ function findEntrances(map) {
     }
 
     if (!startId) {
-        throw new KeyError('Cannot find start room!');
+        console.error('Cannot find start room!');
     }
 
     return startId;

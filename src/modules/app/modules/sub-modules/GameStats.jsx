@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faCoins  } from '@fortawesome/free-solid-svg-icons';
-
-import * as mazeConfig from '../../../maze/constants';
 
 const mapStateToProps = (state) => ({
     gameLog: state.app.gameLog,
@@ -12,7 +10,7 @@ const mapStateToProps = (state) => ({
 });
 
 const GameStats = (props) => {
-    // Create State to control the view of the component
+    // Deconstruct the props we need
     const { gameLog, playerConfig } = props;
 
     // Render a component based on the current view
@@ -20,10 +18,8 @@ const GameStats = (props) => {
 
     for (const log in gameLog) {
         renderGameLog.push(
-            <li>{gameLog[log]}</li>);
+            <li key={log}>{gameLog[log]}</li>);
     }
-
-    console.log(renderGameLog);
 
     return (
         <div className="game-stats">

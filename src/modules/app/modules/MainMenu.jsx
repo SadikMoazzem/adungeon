@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const MainMenu = (props) => {
-    // Create State to control the view of the component
+    // Deconstruct the props provided to component
     const { view, actions } = props;
 
     // Render a component based on the current view

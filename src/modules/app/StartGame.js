@@ -22,6 +22,7 @@ export default function StartGame(dispatch, mapName, playerName) {
                                 dispatch(appActions.updateLoadingMessage('Starting Game'));
                                 setTimeout(() => {
                                     const game = new Maze(mapName);
+                                    game.createMaze();
                                     const startRoom = game.getStartRoom;
                                     const player = PlayerFactory({ name: playerName });
                                     dispatch(appActions.loadMazeGame(game));

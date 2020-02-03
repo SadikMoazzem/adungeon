@@ -10,8 +10,6 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import * as moduleActions from '../../actions';
 import StartGame from '../../StartGame';
 import { maps } from '../../../maze/maps';
-import { VIEW } from '../../constants';
-
 
 const mapDispatchToProps = (dispatch) => ({
     actions: bindActionCreators(moduleActions, dispatch),
@@ -30,8 +28,8 @@ const OptionsMenu = (props) => {
             <div className="exit-btn" onClick={() => { actions.toggleOptionsView(false) }}>
                 <FontAwesomeIcon icon={faTimes} />
             </div>
-            <input type="text" onChange={(e) => { updatePlayerName(e.target.value); }} value={playerName} placeholder='Enter Name' />
-            <Dropdown options={maps} onChange={(e) => updateMapChoice(e.value)} value={mapChoice} placeholder='Select a map to play' />
+            <input type="text" onChange={(e) => { updatePlayerName(e.target.value); }} value={playerName} placeholder="Enter Name" />
+            <Dropdown options={maps} onChange={(e) => updateMapChoice(e.value)} value={mapChoice} placeholder="Select a map to play" />
             <button type="button" onClick={() => { StartGame(dispatch, mapChoice, playerName); }}>Start Game</button>
         </div>
     );

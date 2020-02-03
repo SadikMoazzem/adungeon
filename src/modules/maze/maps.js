@@ -1,10 +1,10 @@
 import { ROOM_TYPES } from './constants';
 
 export const maps = [
-    'map',
+    'intricacy',
 ];
 
-export const map = {
+export const intricacy = {
     config: {
         rows: 4,
         columns: 4,
@@ -103,7 +103,7 @@ export const map = {
             roomType: ROOM_TYPES.EXIT,
             north: 8,
             east: 0,
-            south: 16,
+            south: 0,
             west: 0,
         },
         13: {
@@ -133,7 +133,7 @@ export const map = {
         16: {
             roomId: 16,
             roomType: ROOM_TYPES.ENEMY,
-            north: 12,
+            north: 0,
             east: 0,
             south: 0,
             west: 15,

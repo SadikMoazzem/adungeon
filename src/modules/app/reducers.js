@@ -1,5 +1,6 @@
 import * as moduleActions from './actions';
 import { VIEW } from './constants';
+import Maze from '../maze/Maze';
 
 const initialState = {
     currentView: VIEW.MAIN_MENU,
@@ -17,6 +18,20 @@ const initialState = {
 
 export function app(state = initialState, action) {
     switch (action.type) {
+        case moduleActions.GAME_RESET:
+            return {
+                currentView: VIEW.MAIN_MENU,
+                isOptionsOpen: false,
+                loadingMessage: 'Checking Maze Config...',
+                errorMessage: '',
+                gameLog: ['Game Loaded!'],
+                gameConfig: {
+                    currentRoomId: null,
+                    mapId: null,
+                },
+                mazeConfig: {},
+                playerConfig: {},
+            };
         case moduleActions.VIEW_UPDATE:
             return {
                 ...state,
@@ -57,6 +72,21 @@ export function app(state = initialState, action) {
                 ...state,
                 gameLog: state.gameLog.concat(action.log),
             };
+        case moduleActions.ROOM_TAG:
+            return {
+                ...state,
+                playerConfig: Object.assign({}, state.playerConfig, state.playerConfig.addTaggedRoom(action.roomId))
+            };
+        case moduleActions.ROOM_LOOT: {
+            const updatedRooms = Object.assign({}, state.mazeConfig.maze);
+            updatedRooms[action.roomId.toString()].removeTreasures();
+            const updatedMaze = state.mazeConfig.updateMaze(updatedRooms)
+            return {
+                ...state,
+                playerConfig: Object.assign({}, state.playerConfig, state.playerConfig.updateWealth(action.value)),
+                mazeConfig: updatedMaze,
+            };
+        }
         default:
             return state;
     }
