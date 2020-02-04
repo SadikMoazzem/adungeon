@@ -9,6 +9,8 @@ export const PLAYER_LOAD = 'PLAYER_LOAD';
 export const GAME_LOG_MESSAGE = 'GAME_LOG_MESSAGE';
 export const ROOM_TAG = 'ROOM_TAG';
 export const ROOM_LOOT = 'ROOM_LOOT';
+export const PLAYER_HEALTH_UPDATE = 'PLAYER_HEALTH_UPDATE';
+export const PLAYER_MONSTER_DEFEAT = 'PLAYER_MONSTER_DEFEAT';
 
 export function reset() {
     return {
@@ -84,6 +86,20 @@ export function lootRoom(value, roomId) {
     return {
         type: ROOM_LOOT,
         value,
+        roomId,
+    };
+}
+
+export function healthUpdate(health) {
+    return {
+        type: PLAYER_HEALTH_UPDATE,
+        health,
+    };
+}
+
+export function defeatMonster(roomId) {
+    return {
+        type: PLAYER_MONSTER_DEFEAT,
         roomId,
     };
 }

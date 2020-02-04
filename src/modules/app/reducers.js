@@ -80,10 +80,25 @@ export function app(state = initialState, action) {
         case moduleActions.ROOM_LOOT: {
             const updatedRooms = Object.assign({}, state.mazeConfig.maze);
             updatedRooms[action.roomId.toString()].removeTreasures();
-            const updatedMaze = state.mazeConfig.updateMaze(updatedRooms)
+            const updatedMaze = state.mazeConfig.updateMaze(updatedRooms);
             return {
                 ...state,
                 playerConfig: Object.assign({}, state.playerConfig, state.playerConfig.updateWealth(action.value)),
+                mazeConfig: updatedMaze,
+            };
+        }
+        case moduleActions.PLAYER_HEALTH_UPDATE: {
+            return {
+                ...state,
+                playerConfig: Object.assign({}, state.playerConfig, state.playerConfig.updateHealth(action.health))
+            };
+        }
+        case moduleActions.PLAYER_MONSTER_DEFEAT: {
+            const updatedRooms = Object.assign({}, state.mazeConfig.maze);
+            updatedRooms[action.roomId.toString()].removeEnemies();
+            const updatedMaze = state.mazeConfig.updateMaze(updatedRooms);
+            return {
+                ...state,
                 mazeConfig: updatedMaze,
             };
         }

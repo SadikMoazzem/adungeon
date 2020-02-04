@@ -34,12 +34,6 @@ const MainMenu = (props) => {
                             Start a new game
                         </div>
                     </div>
-                    <div className="menu-option">
-                        Load
-                        <div className="menu-option--sub-text">
-                            Load a saved game
-                        </div>
-                    </div>
                 </div>
             );
             break;
@@ -57,9 +51,9 @@ const MainMenu = (props) => {
                         </div>
                     </div>
                     <div className="menu-option">
-                        Settings
+                        Credits
                         <div className="menu-option--sub-text">
-                            View Settings
+                            View Credits
                         </div>
                     </div>
                 </div>

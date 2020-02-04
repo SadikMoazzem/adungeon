@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import Minimap from './sub-modules/Minimap';
 import * as moduleActions from '../actions';
 import GameOptions from './sub-modules/GameOptions';
 import GameStats from './sub-modules/GameStats';
+import { VIEW } from '../constants';
+import { GameVisual } from './sub-modules/GameVisual';
 
 const mapStateToProps = (state) => ({
     globalState: state,
     gameConfig: state.app.gameConfig,
     mazeConfig: state.app.mazeConfig,
+    playerConfig: state.app.playerConfig,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -18,22 +24,33 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const MazeContainer = (props) => {
-    const { gameConfig, mazeConfig } = props;
+    const [isOpen, toggleOptions] = useState(false);
+
+    const {
+        gameConfig, mazeConfig, playerConfig, actions
+    } = props;
+
+    if (playerConfig.health === 0) {
+        actions.reset();
+        actions.viewUpdate(VIEW.END_GAME_LOSS);
+    }
 
     return (
         <div className="app--maze-container">
+            <button type="button" className="option-btn" onClick={() => { console.log('lol'); toggleOptions(!isOpen); }}>
+                <FontAwesomeIcon icon={faBars} />
+            </button>
+            {isOpen ? (
+                <div className="game-menu">
+                    <div className="exit-btn" onClick={() => { toggleOptions(false); }}>
+                        <FontAwesomeIcon icon={faTimes} />
+                    </div>
+                    <button type="button" onClick={() => { actions.reset(); }}>Reset Game</button>
+                </div>
+            ) : ''}
             <div className="game">
                 <div className="game--view">
-                    <div className="game-view--visual">
-                        <img src={mazeConfig.maze[gameConfig.currentRoomId].background} alt="view" className="background" />
-                        {/* Dynamically render these images */}
-                        <div className="enemy">
-                            {mazeConfig.maze[gameConfig.currentRoomId].enemy ? <img src="enemies/monster.png" /> : ''}
-                        </div>
-                        <div className="treasure">
-                            {mazeConfig.maze[gameConfig.currentRoomId].treasure ? <img src="treasure/gold.png" /> : ''}
-                        </div>
-                    </div>
+                    <GameVisual gameConfig={gameConfig} mazeConfig={mazeConfig} />
                     <div className="game-view--options">
                         <GameOptions />
                     </div>

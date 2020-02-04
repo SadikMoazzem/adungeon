@@ -2,16 +2,17 @@
  * A Factory Function that creates a room Obj
  */
 import {
-    ENEMY_TYPES, WEAPON_TYPES, ROOM_TYPES, TREASURE_TYPES, BACKGROUNDS, DEFAULT_ROOM_ACTIONS, ENEMY_ROOM_ACTIONS, TREASURE_ROOM_ACTION
+    ENEMY_TYPES, WEAPON_TYPES, ROOM_TYPES, TREASURE_TYPES, BACKGROUNDS, DEFAULT_ROOM_ACTIONS, ENEMY_CONFIGS,
 } from './constants';
 
 const createRoom = ({
-    id, type, passages = {}, enemy = '', treasure = '', actions = DEFAULT_ROOM_ACTIONS, background = '',
+    id, type, passages = {}, enemy = '', enemyView = '', treasure = '', actions = DEFAULT_ROOM_ACTIONS, background = '',
 }) => ({
     id,
     type,
     passages,
     enemy,
+    enemyView,
     treasure,
     actions,
     background,
@@ -19,6 +20,10 @@ const createRoom = ({
         const getRandomValue = (Obj) => {
             const keys = Object.keys(Obj);
             return Obj[keys[keys.length * Math.random() << 0]];
+        };
+
+        const getRandomImage = (images) => {
+            return images[Math.floor(Math.random() * images.length)];
         };
 
         switch (this.type) {
@@ -29,6 +34,7 @@ const createRoom = ({
             case ROOM_TYPES.ENEMY:
                 this.enemy = getRandomValue(ENEMY_TYPES);
                 this.background = BACKGROUNDS.ENEMY;
+                this.enemyView = getRandomImage(ENEMY_CONFIGS[this.enemy].view);
                 break;
             case ROOM_TYPES.TREASURE:
                 this.treasure = getRandomValue(TREASURE_TYPES);
@@ -79,6 +85,10 @@ const createRoom = ({
     },
     removeTreasures() {
         this.treasure = '';
+        return this;
+    },
+    removeEnemies() {
+        this.enemy = '';
         return this;
     },
 });

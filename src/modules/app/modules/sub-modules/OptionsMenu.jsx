@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
@@ -25,14 +26,20 @@ const OptionsMenu = (props) => {
 
     return (
         <div className="app--options-menu">
-            <div className="exit-btn" onClick={() => { actions.toggleOptionsView(false) }}>
+            <div className="exit-btn" onClick={() => { actions.toggleOptionsView(false); }}>
                 <FontAwesomeIcon icon={faTimes} />
             </div>
-            <input type="text" onChange={(e) => { updatePlayerName(e.target.value); }} value={playerName} placeholder="Enter Name" />
             <Dropdown options={maps} onChange={(e) => updateMapChoice(e.value)} value={mapChoice} placeholder="Select a map to play" />
             <button type="button" onClick={() => { StartGame(dispatch, mapChoice, playerName); }}>Start Game</button>
         </div>
     );
+};
+
+OptionsMenu.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    actions: PropTypes.shape({
+        toggleOptionsView: PropTypes.func,
+    }).isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(OptionsMenu);

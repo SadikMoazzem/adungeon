@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faCoins  } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faCoins } from '@fortawesome/free-solid-svg-icons';
 
 const mapStateToProps = (state) => ({
     gameLog: state.app.gameLog,
@@ -14,7 +15,7 @@ const GameStats = (props) => {
     const { gameLog, playerConfig } = props;
 
     // Render a component based on the current view
-    let renderGameLog = [];
+    const renderGameLog = [];
 
     for (const log in gameLog) {
         renderGameLog.push(
@@ -38,6 +39,14 @@ const GameStats = (props) => {
             </ul>
         </div>
     );
+};
+
+GameStats.propTypes = {
+    gameLog: PropTypes.arrayOf(PropTypes.string).isRequired,
+    playerConfig: PropTypes.shape({
+        health: PropTypes.number,
+        wealth: PropTypes.number,
+    }).isRequired,
 };
 
 export default connect(mapStateToProps, null)(GameStats);

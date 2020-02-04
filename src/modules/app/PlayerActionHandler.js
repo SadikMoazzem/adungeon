@@ -9,10 +9,10 @@ export default function PlayerActionHandler(dispatch, actionType, data = {}, maz
 
     switch (actionType) {
         case mazeConfig.PLAYER_ACTIONS.TRAVEL_ROOM: {
-            // if (mazeObj[data.roomId].enemy) {
-            //     dispatch(moduleActions.logGame('Cannot leave until enemy is defeated!'));
-            //     return;
-            // }
+            if (mazeObj[data.roomId].enemy) {
+                dispatch(moduleActions.logGame('Cannot leave until enemy is defeated!'));
+                return;
+            }
 
             if (!mazeObj[data.roomId].passages[data.direction].next) {
                 dispatch(moduleActions.logGame('You cannot go this way!'));
@@ -34,8 +34,8 @@ export default function PlayerActionHandler(dispatch, actionType, data = {}, maz
 
             if (newRoomObj.type === mazeConfig.ROOM_TYPES.EXIT) {
                 dispatch(moduleActions.logGame('You have found the exit'));
-                dispatch(moduleActions.reset(VIEW.END_GAME));
-                dispatch(moduleActions.viewUpdate(VIEW.END_GAME));
+                dispatch(moduleActions.reset());
+                dispatch(moduleActions.viewUpdate(VIEW.END_GAME_VICTORY));
             }
 
             break;
@@ -44,8 +44,9 @@ export default function PlayerActionHandler(dispatch, actionType, data = {}, maz
             if (playerObj.wealth > 0) {
                 dispatch(moduleActions.tagRoom(data.roomId));
                 dispatch(moduleActions.logGame('Saved room to map! Paid 1 gold'));
+            } else {
+                dispatch(moduleActions.logGame('You have no gold to tag room with'));
             }
-            dispatch(moduleActions.logGame('Have no gold to tag room with'));
             break;
         case mazeConfig.PLAYER_ACTIONS.WEALTH_GAIN:
             dispatch(moduleActions.lootRoom(data.value, data.roomId));

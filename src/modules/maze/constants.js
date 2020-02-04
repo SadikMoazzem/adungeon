@@ -14,25 +14,6 @@ export const BACKGROUNDS = {
     ENEMY: 'dungeon_backgrounds/enemy.jpg',
 };
 
-export const ENEMY_TYPES = {
-    MONSTER: 'MONSTER',
-    ALIEN: 'ALIEN',
-};
-
-// DPA - Dmg per attack
-export const ENEMY_CONFIGS = {
-    MONSTER: {
-        hp: 40,
-        dpa: 10,
-        TREASURE: 15,
-    },
-    ALIEN: {
-        hp: 40,
-        dpa: 10,
-        TREASURE: 10,
-    },
-};
-
 export const ITEM_TYPES = {
     ENEMY: 'ENEMY_CONFIGS',
     TREASURE: 'TREASURE_TYPES',
@@ -90,6 +71,13 @@ export const PLAYER_ACTIONS = {
     TRAVEL_ROOM: 'TRAVEL_ROOM',
 };
 
+export const PLAYER_FIGHT = {
+    FIGHT_ENEMY_SLICE: 'FIGHT_ENEMY_SLICE',
+    FIGHT_ENEMY_WHACK: 'FIGHT_ENEMY_WHACK',
+    FIGHT_ENEMY_STAB: 'FIGHT_ENEMY_STAB',
+    FIGHT_ENEMY_BASH: 'FIGHT_ENEMY_BASH',
+};
+
 export const ACTION_OPTIONS = {
     MOVE_NORTH: {
         view: 'Move Up',
@@ -115,17 +103,25 @@ export const ACTION_OPTIONS = {
         view: 'Tag room',
         action: PLAYER_ACTIONS.MARK_ROOM,
     },
-    FIGHT_ENEMY: {
-        view: 'Fight Enemy',
-        action: PLAYER_ACTIONS.ENEMY_ATTACK,
-    },
-    LOOT_ENEMY: {
-        view: 'Loot Enemy',
-        action: PLAYER_ACTIONS.WEALTH_GAIN,
-    },
     TAKE_TREASURE: {
         view: 'Take Treasure',
         action: PLAYER_ACTIONS.WEALTH_GAIN,
+    },
+    FIGHT_ENEMY_SLICE: {
+        view: 'Slice Enemy',
+        action: PLAYER_FIGHT.FIGHT_ENEMY_SLICE,
+    },
+    FIGHT_ENEMY_WHACK: {
+        view: 'Whack Enemy',
+        action: PLAYER_FIGHT.FIGHT_ENEMY_WHACK,
+    },
+    FIGHT_ENEMY_STAB: {
+        view: 'Stab Enemy',
+        action: PLAYER_FIGHT.FIGHT_ENEMY_STAB,
+    },
+    FIGHT_ENEMY_BASH: {
+        view: 'Bash Enemy',
+        action: PLAYER_FIGHT.FIGHT_ENEMY_BASH,
     },
 };
 
@@ -147,11 +143,33 @@ export const DEFAULT_ROOM_ACTIONS = {
         ACTION_OPTIONS.TAG_ROOM,
     ],
     Fight: [
-        ACTION_OPTIONS.FIGHT_ENEMY,
+        ACTION_OPTIONS.FIGHT_ENEMY_BASH,
+        ACTION_OPTIONS.FIGHT_ENEMY_SLICE,
+        ACTION_OPTIONS.FIGHT_ENEMY_STAB,
+        ACTION_OPTIONS.FIGHT_ENEMY_WHACK,
     ],
     Loot: [
         ACTION_OPTIONS.TAKE_TREASURE,
     ],
+};
+
+export const ENEMY_TYPES = {
+    MONSTER: 'MONSTER',
+    GHOST: 'GHOST',
+};
+
+// DPA - Dmg per attack
+export const ENEMY_CONFIGS = {
+    MONSTER: {
+        dpa: 10,
+        defeatedBy: PLAYER_FIGHT.FIGHT_ENEMY_BASH,
+        view: ['enemies/monster_1.png', 'enemies/monster_2.png'],
+    },
+    GHOST: {
+        dpa: 10,
+        defeatedBy: PLAYER_FIGHT.FIGHT_ENEMY_SLICE,
+        view: ['enemies/ghost_1.png', 'enemies/ghost_2.png'],
+    },
 };
 
 // Testing configs

@@ -36,3 +36,27 @@
 
     }
 }
+
+.end-screen {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 60px;
+    text-align: center;
+
+    > button,
+    > h1 {
+        color: $color-active;
+    }
+
+    > button {
+        background-color: transparent;
+        border-color: transparent;
+        color: $default-color-font;
+        font-size: 30px;
+        &:hover {
+            color: $color-active;
+        }
+    }
+}
