@@ -34,7 +34,6 @@ export default function PlayerActionHandler(dispatch, actionType, data = {}, maz
 
             if (newRoomObj.type === mazeConfig.ROOM_TYPES.EXIT) {
                 dispatch(moduleActions.logGame('You have found the exit'));
-                dispatch(moduleActions.reset());
                 dispatch(moduleActions.viewUpdate(VIEW.END_GAME_VICTORY));
             }
 

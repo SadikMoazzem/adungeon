@@ -14,6 +14,7 @@ import { EndScreen } from './sub-modules/EndScreen';
 
 const mapStateToProps = (state) => ({
     view: state.app.currentView,
+    playerConfig: state.app.playerConfig,
     isOptionsOpen: state.app.isOptionsOpen,
     loadingMessage: state.app.loadingMessage,
     errorMessage: state.app.errorMessage,
@@ -29,7 +30,7 @@ const App = (props) => {
     console.log(props.globalState);
 
     const {
-        view, isOptionsOpen, loadingMessage, errorMessage, actions
+        view, isOptionsOpen, loadingMessage, errorMessage, playerConfig, actions
     } = props;
 
     // Render a component based on the current view
@@ -45,10 +46,10 @@ const App = (props) => {
             renderView = <LoadingScreen loadingMessage={loadingMessage} />;
             break;
         case VIEW.END_GAME_VICTORY:
-            renderView = <EndScreen message={'YOU WON'} resetGame={actions.reset} />;
+            renderView = <EndScreen message={'YOU WON'} resetGame={actions.reset} wealth={playerConfig.wealth} />;
             break;
         case VIEW.END_GAME_LOSS:
-            renderView = <EndScreen message={'YOU DIED'} resetGame={actions.reset} />;
+            renderView = <EndScreen message={'YOU DIED'} resetGame={actions.reset} wealth={playerConfig.wealth} />;
             break;
         default:
         case VIEW.MAIN_MENU || VIEW.OPTIONS_MENU:

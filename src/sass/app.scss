@@ -50,6 +50,11 @@
         color: $color-active;
     }
 
+    > h2 {
+        font-size: 30px;
+        color: $default-color-font;
+    }
+
     > button {
         background-color: transparent;
         border-color: transparent;

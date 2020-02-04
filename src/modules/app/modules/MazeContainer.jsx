@@ -31,7 +31,6 @@ const MazeContainer = (props) => {
     } = props;
 
     if (playerConfig.health === 0) {
-        actions.reset();
         actions.viewUpdate(VIEW.END_GAME_LOSS);
     }
 
