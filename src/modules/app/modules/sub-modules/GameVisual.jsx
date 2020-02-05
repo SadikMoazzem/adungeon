@@ -11,7 +11,7 @@ const GameVisual = (props) => {
                 {mazeConfig.maze[gameConfig.currentRoomId].enemy ? <img src={mazeConfig.maze[gameConfig.currentRoomId].enemyView} alt="enemy" /> : ''}
             </div>
             <div className="treasure">
-                {mazeConfig.maze[gameConfig.currentRoomId].treasure ? <img src="treasure/gold.png" alt="loot" /> : ''}
+                {mazeConfig.maze[gameConfig.currentRoomId].treasure ? <img src={mazeConfig.maze[gameConfig.currentRoomId].treasureView} alt="loot" /> : ''}
             </div>
         </div>
     );
@@ -25,7 +25,7 @@ GameVisual.propTypes = {
         }),
     }).isRequired,
     gameConfig: PropTypes.shape({
-        currentRoomId: PropTypes.number,
+        currentRoomId: PropTypes.string,
     }).isRequired,
 };
 

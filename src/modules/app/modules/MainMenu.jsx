@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHandPointLeft } from '@fortawesome/free-solid-svg-icons';
+
+import StartGame from '../StartGame';
 import * as moduleActions from '../actions';
 import { VIEW } from '../constants';
 
@@ -15,11 +17,12 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     actions: bindActionCreators(moduleActions, dispatch),
+    dispatch,
 });
 
 const MainMenu = (props) => {
     // Deconstruct the props provided to component
-    const { view, actions } = props;
+    const { view, actions, dispatch } = props;
 
     // Render a component based on the current view
     let renderOptions = '';
@@ -31,9 +34,27 @@ const MainMenu = (props) => {
                         className="menu-option"
                         onClick={() => actions.toggleOptionsView(true)}
                     >
-                        Start
+                        New Map
                         <div className="menu-option--sub-text">
-                            Start a new game
+                            Play with a new map
+                        </div>
+                    </div>
+                    <div
+                        className="menu-option"
+                        onClick={() => StartGame(dispatch, 'fractured_crypt')}
+                    >
+                        Fractured Crypt
+                        <div className="menu-option--sub-text">
+                            Preset Game
+                        </div>
+                    </div>
+                    <div
+                        className="menu-option"
+                        onClick={() => StartGame(dispatch, 'ruthless_serpent')}
+                    >
+                        Ruthless Serpent
+                        <div className="menu-option--sub-text">
+                            Preset Game
                         </div>
                     </div>
                 </div>
@@ -47,15 +68,9 @@ const MainMenu = (props) => {
                         className="menu-option"
                         onClick={() => actions.viewUpdate(VIEW.OPTIONS_MENU)}
                     >
-                    Campaign
+                    Start
                         <div className="menu-option--sub-text">
-                            Play a Campaign game
-                        </div>
-                    </div>
-                    <div className="menu-option">
-                        Credits
-                        <div className="menu-option--sub-text">
-                            View Credits
+                            Start a game
                         </div>
                     </div>
                 </div>
@@ -79,6 +94,7 @@ const MainMenu = (props) => {
 };
 
 MainMenu.propTypes = {
+    dispatch: PropTypes.func.isRequired,
     actions: PropTypes.shape({
         viewUpdate: PropTypes.func,
         toggleOptionsView: PropTypes.func,

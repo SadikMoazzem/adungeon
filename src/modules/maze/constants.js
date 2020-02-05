@@ -6,13 +6,13 @@ export const ROOM_TYPES = {
     ENEMY: 'ENEMY',
 };
 
-export const BACKGROUNDS = {
-    DEFAULT: 'dungeon_backgrounds/default.jpg',
-    ENTRANCE: 'dungeon_backgrounds/entrance.jpg',
-    EXIT: 'dungeon_backgrounds/exit.jpg',
-    TREASURE: 'dungeon_backgrounds/treasure.jpg',
-    ENEMY: 'dungeon_backgrounds/enemy.jpg',
-};
+export const BACKGROUNDS = [
+    'dungeon_backgrounds/background_1.jpg',
+    'dungeon_backgrounds/background_2.jpg',
+    'dungeon_backgrounds/background_3.jpg',
+    'dungeon_backgrounds/background_4.jpg',
+    'dungeon_backgrounds/background_5.jpg',
+];
 
 export const ITEM_TYPES = {
     ENEMY: 'ENEMY_CONFIGS',
@@ -23,7 +23,6 @@ export const ITEM_TYPES = {
 export const TREASURE_TYPES = {
     SACK_OF_GOLD: 'SACK_OF_GOLD',
     SACK_OF_SILVER: 'SACK_OF_SILVER',
-    SACK_OF_COPPER: 'SACK_OF_COPPER',
     RUBY: 'RUBY',
 };
 
@@ -34,34 +33,15 @@ export const TREASURE_CONFIGS = {
     SACK_OF_SILVER: {
         TREASURE: 5,
     },
-    SACK_OF_COPPER: {
-        TREASURE: 3,
-    },
     RUBY: {
         TREASURE: 15,
     },
 };
 
-export const WEAPON_TYPES = {
-    FIST: 'FIST',
-    SWORD: 'SWORD',
-    MALLET: 'MALLET',
-    STICK: 'STICK',
-};
-
-export const WEAPON_CONFIGS = {
-    FIST: {
-        DPA: 5,
-    },
-    SWORD: {
-        DPA: 10,
-    },
-    MALLET: {
-        DPA: 10,
-    },
-    STICK: {
-        DPA: 10,
-    },
+export const TREASURE_BACKGROUNDS = {
+    [TREASURE_TYPES.RUBY]: 'treasure/ruby.png',
+    [TREASURE_TYPES.SACK_OF_GOLD]: 'treasure/gold.png',
+    [TREASURE_TYPES.SACK_OF_SILVER]: 'treasure/silver.png',
 };
 
 export const PLAYER_ACTIONS = {
@@ -173,7 +153,10 @@ export const ENEMY_CONFIGS = {
 };
 
 // Testing configs
-
 export const ROOM_VALIDATION = [
     'roomId', 'north', 'east', 'south', 'west', 'roomType',
+];
+
+export const ROOM_TYPE_VALIDATION = [
+    'DEFAULT', 'ENTRANCE', 'EXIT', 'TREASURE', 'ENEMY',
 ];

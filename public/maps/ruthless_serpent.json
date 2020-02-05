@@ -1,0 +1,136 @@
+{
+    "config": {
+        "rows": 4,
+        "columns": 4
+    },
+    "schema": {
+        "1": {
+            "roomId": 1,
+            "roomType": "ENTRANCE",
+            "north": 0,
+            "east": 2,
+            "south": 0,
+            "west": 0
+        },
+        "2": {
+            "roomId": 2,
+            "roomType": "DEFAULT",
+            "north": 0,
+            "east": 0,
+            "south": 6,
+            "west": 1
+        },
+        "3": {
+            "roomId": 3,
+            "roomType": "DEFAULT",
+            "north": 0,
+            "east": 0,
+            "south": 0,
+            "west": 0
+        },
+        "4": {
+            "roomId": 4,
+            "roomType": "DEFAULT",
+            "north": 0,
+            "east": 0,
+            "south": 8,
+            "west": 0
+        },
+        "5": {
+            "roomId": 5,
+            "roomType": "TREASURE",
+            "north": 0,
+            "east": 6,
+            "south": 0,
+            "west": 0
+        },
+        "6": {
+            "roomId": 6,
+            "roomType": "ENEMY",
+            "north": 2,
+            "east": 7,
+            "south": 10,
+            "west": 5
+        },
+        "7": {
+            "roomId": 7,
+            "roomType": "ENEMY",
+            "north": 0,
+            "east": 8,
+            "south": 0,
+            "west": 6
+        },
+        "8": {
+            "roomId": 8,
+            "roomType": "TREASURE",
+            "north": 4,
+            "east": 0,
+            "south": 12,
+            "west": 7
+        },
+        "9": {
+            "roomId": 9,
+            "roomType": "DEFAULT",
+            "north": 0,
+            "east": 10,
+            "south": 13,
+            "west": 0
+        },
+        "10": {
+            "roomId": 10,
+            "roomType": "TREASURE",
+            "north": 6,
+            "east": 11,
+            "south": 0,
+            "west": 9
+        },
+        "11": {
+            "roomId": 11,
+            "roomType": "ENEMY",
+            "north": 0,
+            "east": 0,
+            "south": 15,
+            "west": 10
+        },
+        "12": {
+            "roomId": 12,
+            "roomType": "EXIT",
+            "north": 8,
+            "east": 0,
+            "south": 0,
+            "west": 0
+        },
+        "13": {
+            "roomId": 13,
+            "roomType": "ENTRANCE",
+            "north": 9,
+            "east": 0,
+            "south": 0,
+            "west": 0
+        },
+        "14": {
+            "roomId": 14,
+            "roomType": "DEFAULT",
+            "north": 0,
+            "east": 0,
+            "south": 0,
+            "west": 0
+        },
+        "15": {
+            "roomId": 15,
+            "roomType": "ENEMY",
+            "north": 11,
+            "east": 16,
+            "south": 0,
+            "west": 0
+        },
+        "16": {
+            "roomId": 16,
+            "roomType": "ENEMY",
+            "north": 0,
+            "east": 0,
+            "south": 0,
+            "west": 15
+        }
+    }
+}

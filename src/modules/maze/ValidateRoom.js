@@ -1,4 +1,4 @@
-import { ROOM_VALIDATION } from './constants';
+import { ROOM_VALIDATION, ROOM_TYPE_VALIDATION } from './constants';
 
 export default function ValidateRoomsHasKeys(roomObj) {
     // Validation of keys in the room obj
@@ -9,7 +9,12 @@ export default function ValidateRoomsHasKeys(roomObj) {
                 missingKeys.push(keyValidation);
             }
         });
+        if (!ROOM_TYPE_VALIDATION.includes(roomObj[roomId].roomType)) {
+            missingKeys.push(roomObj[roomId].roomType);
+        }
     }
 
-    return missingKeys.length === 0 && Object.keys(roomObj).length;
+    console.log(missingKeys)
+
+    return missingKeys.length === 0 && Object.keys(roomObj).length > 0;
 }

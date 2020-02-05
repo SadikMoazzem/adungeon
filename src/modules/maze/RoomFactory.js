@@ -2,12 +2,12 @@
  * A Factory Function that creates a room Obj
  */
 import {
-    ENEMY_TYPES, WEAPON_TYPES, ROOM_TYPES, TREASURE_TYPES, BACKGROUNDS,
-    DEFAULT_ROOM_ACTIONS, ENEMY_CONFIGS,
+    ENEMY_TYPES, ROOM_TYPES, TREASURE_TYPES, BACKGROUNDS,
+    DEFAULT_ROOM_ACTIONS, ENEMY_CONFIGS, TREASURE_BACKGROUNDS,
 } from './constants';
 
 const createRoom = ({
-    id, type, passages = {}, enemy = '', enemyView = '', treasure = '', actions = DEFAULT_ROOM_ACTIONS, background = '',
+    id, type, passages = {}, enemy = '', enemyView = '', treasure = '', treasureView = '', actions = DEFAULT_ROOM_ACTIONS, background = '',
 }) => ({
     id,
     type,
@@ -15,6 +15,7 @@ const createRoom = ({
     enemy,
     enemyView,
     treasure,
+    treasureView,
     actions,
     background,
     generateRoomItems() {
@@ -29,24 +30,24 @@ const createRoom = ({
 
         switch (this.type) {
             case ROOM_TYPES.ENTRANCE:
-                this.weapon = Object.keys(WEAPON_TYPES);
-                this.background = BACKGROUNDS.ENTRANCE;
+                this.background = 'dungeon_backgrounds/entrance.jpg';
                 break;
             case ROOM_TYPES.ENEMY:
                 this.enemy = getRandomValue(ENEMY_TYPES);
-                this.background = BACKGROUNDS.ENEMY;
+                this.background = getRandomImage(BACKGROUNDS);
                 this.enemyView = getRandomImage(ENEMY_CONFIGS[this.enemy].view);
                 break;
             case ROOM_TYPES.TREASURE:
                 this.treasure = getRandomValue(TREASURE_TYPES);
-                this.background = BACKGROUNDS.TREASURE;
+                this.treasureView = TREASURE_BACKGROUNDS[this.treasure];
+                this.background = getRandomImage(BACKGROUNDS);
                 break;
             case ROOM_TYPES.EXIT:
-                this.background = BACKGROUNDS.EXIT;
+                this.background = 'dungeon_backgrounds/exit.jpg';
                 break;
             default:
             case ROOM_TYPES.DEFAULT:
-                this.background = BACKGROUNDS.DEFAULT;
+                this.background = getRandomImage(BACKGROUNDS);
                 break;
         }
     },

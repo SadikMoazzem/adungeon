@@ -24,11 +24,11 @@ export default function PlayerActionHandler(dispatch, actionType, data = {}, maz
             dispatch(moduleActions.logGame('Player moved to a room'));
 
             const newRoomObj = mazeObj[data.nextRoomId];
-            if (newRoomObj.type === mazeConfig.ROOM_TYPES.ENEMY) {
+            if (newRoomObj.enemy) {
                 dispatch(moduleActions.logGame('There is a Enemy in this room, defeat it to carry on.'));
             }
 
-            if (newRoomObj.type === mazeConfig.ROOM_TYPES.TREASURE) {
+            if (newRoomObj.treasure) {
                 dispatch(moduleActions.logGame('There is treasure in this room.'));
             }
 
