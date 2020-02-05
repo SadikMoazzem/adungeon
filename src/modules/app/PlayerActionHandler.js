@@ -41,13 +41,18 @@ export default function PlayerActionHandler(dispatch, actionType, data = {}, maz
         }
         case mazeConfig.PLAYER_ACTIONS.MARK_ROOM:
             if (playerObj.wealth > 0) {
-                dispatch(moduleActions.tagRoom(data.roomId));
-                dispatch(moduleActions.logGame('Saved room to map! Paid 1 gold'));
+                if (playerObj.taggedRooms.includes(data.roomId.toString())) {
+                    dispatch(moduleActions.logGame('You have already tagged this room!'));
+                } else {
+                    dispatch(moduleActions.tagRoom(data.roomId));
+                    dispatch(moduleActions.logGame('Saved room to map! Paid 1 gold'));
+                }
             } else {
                 dispatch(moduleActions.logGame('You have no gold to tag room with'));
             }
             break;
         case mazeConfig.PLAYER_ACTIONS.WEALTH_GAIN:
+            dispatch(moduleActions.logGame('Player gained loot!'));
             dispatch(moduleActions.lootRoom(data.value, data.roomId));
             break;
         default:

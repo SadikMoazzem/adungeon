@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHandPointLeft } from '@fortawesome/free-solid-svg-icons';
@@ -26,7 +27,8 @@ const MainMenu = (props) => {
         case VIEW.OPTIONS_MENU:
             renderOptions = (
                 <div className="main-menu--options">
-                    <div className="menu-option"
+                    <div
+                        className="menu-option"
                         onClick={() => actions.toggleOptionsView(true)}
                     >
                         Start
@@ -69,11 +71,20 @@ const MainMenu = (props) => {
                 </div>
             ) : ''}
             <div className="main-menu--image">
-                <img src='android-chrome-512x512.png' alt='logo' />
+                <img src="android-chrome-512x512.png" alt="logo" />
             </div>
             { renderOptions }
         </div>
     );
+};
+
+MainMenu.propTypes = {
+    actions: PropTypes.shape({
+        viewUpdate: PropTypes.func,
+        toggleOptionsView: PropTypes.func,
+    }).isRequired,
+
+    view: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainMenu);

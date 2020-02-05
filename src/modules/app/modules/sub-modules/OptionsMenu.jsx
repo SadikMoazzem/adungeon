@@ -3,14 +3,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 
-import Dropdown from 'react-dropdown';
-import 'react-dropdown/style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-import * as moduleActions from '../../actions';
 import StartGame from '../../StartGame';
-import { maps } from '../../../maze/maps';
+import * as moduleActions from '../../actions';
 
 const mapDispatchToProps = (dispatch) => ({
     actions: bindActionCreators(moduleActions, dispatch),
@@ -21,16 +18,15 @@ const OptionsMenu = (props) => {
     const { dispatch, actions } = props;
 
     // Create State to control the view of the component
-    const [playerName, updatePlayerName] = useState('');
-    const [mapChoice, updateMapChoice] = useState('');
+    const [mapName, updateMapName] = useState('');
 
     return (
         <div className="app--options-menu">
             <div className="exit-btn" onClick={() => { actions.toggleOptionsView(false); }}>
                 <FontAwesomeIcon icon={faTimes} />
             </div>
-            <Dropdown options={maps} onChange={(e) => updateMapChoice(e.value)} value={mapChoice} placeholder="Select a map to play" />
-            <button type="button" onClick={() => { StartGame(dispatch, mapChoice, playerName); }}>Start Game</button>
+            <input type="text" onChange={(e) => { updateMapName(e.target.value); }} value={mapName} placeholder="Enter Map Name" />
+            <button type="button" onClick={() => { StartGame(dispatch, mapName); }}>Start Game</button>
         </div>
     );
 };

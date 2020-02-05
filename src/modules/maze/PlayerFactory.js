@@ -3,9 +3,8 @@
  */
 
 const createPlayer = ({
-    name, health = 20, wealth = 0, weapon = '', taggedRooms = [],
+    health = 20, wealth = 0, weapon = '', taggedRooms = [],
 }) => ({
-    name,
     health,
     wealth,
     weapon,

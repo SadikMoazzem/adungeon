@@ -1,16 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 
-import * as moduleActions from '../actions';
+import MazeContainer from './MazeContainer';
 import MainMenu from './MainMenu';
 import OptionsMenu from './sub-modules/OptionsMenu';
 import LoadingScreen from './sub-modules/LoadingScreen';
 import ErrorScreen from './sub-modules/ErrorScreen';
+import EndScreen from './sub-modules/EndScreen';
 
+import * as moduleActions from '../actions';
 import { VIEW } from '../constants';
-import MazeContainer from './MazeContainer';
-import { EndScreen } from './sub-modules/EndScreen';
 
 const mapStateToProps = (state) => ({
     view: state.app.currentView,
@@ -18,7 +19,7 @@ const mapStateToProps = (state) => ({
     isOptionsOpen: state.app.isOptionsOpen,
     loadingMessage: state.app.loadingMessage,
     errorMessage: state.app.errorMessage,
-    globalState: state,
+    globalState: state.app,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -71,6 +72,21 @@ const App = (props) => {
             { isOptionsOpen ? <OptionsMenu /> : ''}
         </div>
     );
+};
+
+App.propTypes = {
+    actions: PropTypes.shape({
+        viewUpdate: PropTypes.func,
+        reset: PropTypes.func,
+    }).isRequired,
+
+    view: PropTypes.string.isRequired,
+    isOptionsOpen: PropTypes.bool.isRequired,
+    loadingMessage: PropTypes.string.isRequired,
+    errorMessage: PropTypes.string.isRequired,
+    playerConfig: PropTypes.shape({
+        wealth: PropTypes.number,
+    }).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const LoadingScreen = (props) => {
     const { loadingMessage } = props;
@@ -12,6 +13,10 @@ const LoadingScreen = (props) => {
             </p>
         </div>
     );
+};
+
+LoadingScreen.propTypes = {
+    loadingMessage: PropTypes.string.isRequired,
 };
 
 export default LoadingScreen;

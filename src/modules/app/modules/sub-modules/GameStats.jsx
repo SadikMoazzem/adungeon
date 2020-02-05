@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -11,7 +11,18 @@ const mapStateToProps = (state) => ({
 });
 
 const GameStats = (props) => {
-    // Deconstruct the props we need
+    // Makes a reference to bottom of the logs
+    const bottomOfLogs = useRef(null);
+
+    // Using the react hook, we always scroll to the bottom of the div
+    useEffect(() => {
+        bottomOfLogs.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+        });
+    });
+
+    // Deconstruct only the props we need
     const { gameLog, playerConfig } = props;
 
     // Render a component based on the current view
@@ -19,7 +30,8 @@ const GameStats = (props) => {
 
     for (const log in gameLog) {
         renderGameLog.push(
-            <li key={log}>{gameLog[log]}</li>);
+            <li key={log}>{gameLog[log]}</li>,
+        );
     }
 
     return (
@@ -36,6 +48,10 @@ const GameStats = (props) => {
             </div>
             <ul className="game-log">
                 { renderGameLog }
+                <div
+                    style={{ float: 'left', clear: 'both' }}
+                    ref={bottomOfLogs}
+                />
             </ul>
         </div>
     );

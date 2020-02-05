@@ -17,7 +17,7 @@ export default function PlayerFightHandler(dispatch, action, room) {
         case PLAYER_FIGHT.FIGHT_ENEMY_BASH:
             if (enemy.defeatedBy === PLAYER_FIGHT.FIGHT_ENEMY_BASH) {
                 dispatch(moduleActions.defeatMonster(room.id));
-                dispatch(moduleActions.logGame('You have defeated the monster!'));
+                dispatch(moduleActions.logGame('You have defeated the enemy!'));
             } else {
                 dispatch(moduleActions.healthUpdate(enemy.dpa));
                 dispatch(moduleActions.logGame('Attack was not effective.'));

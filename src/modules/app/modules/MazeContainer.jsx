@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
-import Minimap from './sub-modules/Minimap';
-import * as moduleActions from '../actions';
+import GameVisual from './sub-modules/GameVisual';
 import GameOptions from './sub-modules/GameOptions';
 import GameStats from './sub-modules/GameStats';
+import Minimap from './sub-modules/Minimap';
+
+import * as moduleActions from '../actions';
 import { VIEW } from '../constants';
-import { GameVisual } from './sub-modules/GameVisual';
 
 const mapStateToProps = (state) => ({
     globalState: state,
@@ -27,7 +29,7 @@ const MazeContainer = (props) => {
     const [isOpen, toggleOptions] = useState(false);
 
     const {
-        gameConfig, mazeConfig, playerConfig, actions
+        gameConfig, mazeConfig, playerConfig, actions,
     } = props;
 
     if (playerConfig.health === 0) {
@@ -36,7 +38,7 @@ const MazeContainer = (props) => {
 
     return (
         <div className="app--maze-container">
-            <button type="button" className="option-btn" onClick={() => { console.log('lol'); toggleOptions(!isOpen); }}>
+            <button type="button" className="option-btn" onClick={() => { toggleOptions(!isOpen); }}>
                 <FontAwesomeIcon icon={faBars} />
             </button>
             {isOpen ? (
@@ -65,6 +67,19 @@ const MazeContainer = (props) => {
             </div>
         </div>
     );
+};
+
+MazeContainer.propTypes = {
+    actions: PropTypes.shape({
+        reset: PropTypes.func,
+        viewUpdate: PropTypes.func,
+    }).isRequired,
+
+    gameConfig: PropTypes.shape({}).isRequired,
+    mazeConfig: PropTypes.shape({}).isRequired,
+    playerConfig: PropTypes.shape({
+        health: PropTypes.number,
+    }).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MazeContainer);

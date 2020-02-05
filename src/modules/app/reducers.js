@@ -72,11 +72,15 @@ export function app(state = initialState, action) {
                 ...state,
                 gameLog: state.gameLog.concat(action.log),
             };
-        case moduleActions.ROOM_TAG:
+        case moduleActions.ROOM_TAG: {
+            const updatedPlayer = Object.assign({}, state.playerConfig);
+            updatedPlayer.updateWealth(-1);
+            updatedPlayer.addTaggedRoom(action.roomId);
             return {
                 ...state,
-                playerConfig: Object.assign({}, state.playerConfig, state.playerConfig.addTaggedRoom(action.roomId))
+                playerConfig: Object.assign({}, state.playerConfig, updatedPlayer)
             };
+        }
         case moduleActions.ROOM_LOOT: {
             const updatedRooms = Object.assign({}, state.mazeConfig.maze);
             updatedRooms[action.roomId.toString()].removeTreasures();

@@ -38,26 +38,6 @@ const GameOptions = (props) => {
     let renderBackBtn = '';
 
     switch (currentOption) {
-        case '':
-            renderOptions = [];
-            for (const option in currentRoom.actions) {
-                renderOptions.push(
-                    <div
-                        className="game-action"
-                        key={option}
-                        onClick={() => {
-                            updatepreviousOption(currentOption);
-                            updatecurrentOption(option);
-                        }}
-                    >
-                        { option }
-                        <div className="game-action--sub-text">
-                            { mazeConfig.ACTION_TIPS[option] }
-                        </div>
-                    </div>,
-                );
-            }
-            break;
         case 'Move':
             renderOptions = [];
             for (const option in currentRoom.actions[currentOption]) {
@@ -140,10 +120,20 @@ const GameOptions = (props) => {
             break;
         default:
             renderOptions = [];
-            for (const option in currentRoom.actions[currentOption]) {
+            for (const option in currentRoom.actions) {
                 renderOptions.push(
-                    <div className="game-action sub-option" key={option}>
-                        { currentRoom.actions[currentOption][option].view }
+                    <div
+                        className="game-action"
+                        key={option}
+                        onClick={() => {
+                            updatepreviousOption(currentOption);
+                            updatecurrentOption(option);
+                        }}
+                    >
+                        { option }
+                        <div className="game-action--sub-text">
+                            { mazeConfig.ACTION_TIPS[option] }
+                        </div>
                     </div>,
                 );
             }
@@ -172,6 +162,7 @@ GameOptions.propTypes = {
     dispatch: PropTypes.func.isRequired,
 
     mazeObj: PropTypes.shape({}).isRequired,
+    playerConfig: PropTypes.shape({}).isRequired,
     gameConfig: PropTypes.shape({
         currentRoomId: PropTypes.string,
     }).isRequired,

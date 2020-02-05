@@ -12,7 +12,7 @@ function findEntrances(map) {
     }
 
     if (!startId) {
-        console.error('Cannot find start room!');
+        throw ReferenceError('Cannot find start room!');
     }
 
     return startId;
@@ -59,11 +59,14 @@ function checkRoom(currentRoom, map, exitID) {
 }
 
 export default function ValidateMaze(map) {
-    const startId = findEntrances(map);
+    try {
+        const startId = findEntrances(map);
 
-    const exitID = [];
-    const exitIdOccurrences = checkRoom(map[startId], map, exitID);
-    const exits = findWaysToExit(exitIdOccurrences);
-
-    return exits;
+        const exitID = [];
+        const exitIdOccurrences = checkRoom(map[startId], map, exitID);
+        const exits = findWaysToExit(exitIdOccurrences);
+        return exits;
+    } catch (err) {
+        throw ReferenceError(err);
+    }
 }
