@@ -84,8 +84,6 @@ export default class Maze {
                 fetch(`maps/${mapName}.json`)
                     .then((file) => file.json())
                     .then((map) => {
-                        // Add map to state
-                        console.log(map);
                         res({ msg: 'Map Found', mapObj: map });
                     })
                     .catch(() => {
@@ -117,7 +115,8 @@ export default class Maze {
                 const exits = ValidateMaze(mazeClass.maze);
 
                 if (exits.exitIds.length === 1) {
-                    console.log(`Successfully found ${exits.counts[exits.exitIds[0]]} way to go to the exit room found at ${exits.exitIds[0]}`);
+                    // Debug only
+                    // console.log(`Successfully found ${exits.counts[exits.exitIds[0]]} way to go to the exit room found at ${exits.exitIds[0]}`);
                     res({ msg: 'Validated Maze config' });
                 } else if (exits.exitIds.length > 1) {
                     err(ReferenceError('Found more than one exit room!'));

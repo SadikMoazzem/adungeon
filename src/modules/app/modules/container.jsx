@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const App = (props) => {
     // DEBUG ONLY
-    console.log(props.globalState);
+    // console.log(props.globalState);
 
     const {
         view, isOptionsOpen, loadingMessage, errorMessage, playerConfig, actions
