@@ -14,7 +14,5 @@ export default function ValidateRoomsHasKeys(roomObj) {
         }
     }
 
-    console.log(missingKeys)
-
     return missingKeys.length === 0 && Object.keys(roomObj).length > 0;
 }

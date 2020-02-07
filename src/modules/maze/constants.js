@@ -27,13 +27,13 @@ export const TREASURE_TYPES = {
 };
 
 export const TREASURE_CONFIGS = {
-    SACK_OF_GOLD: {
+    [TREASURE_TYPES.SACK_OF_GOLD]: {
         TREASURE: 10,
     },
-    SACK_OF_SILVER: {
+    [TREASURE_TYPES.SACK_OF_SILVER]: {
         TREASURE: 5,
     },
-    RUBY: {
+    [TREASURE_TYPES.RUBY]: {
         TREASURE: 15,
     },
 };
@@ -69,15 +69,15 @@ export const ACTION_OPTIONS = {
         action: PLAYER_ACTIONS.TRAVEL_ROOM,
         direction: 's',
     },
-    MOVE_EAST: {
-        view: 'Move Right',
-        action: PLAYER_ACTIONS.TRAVEL_ROOM,
-        direction: 'e',
-    },
     MOVE_WEST: {
         view: 'Move Left',
         action: PLAYER_ACTIONS.TRAVEL_ROOM,
         direction: 'w',
+    },
+    MOVE_EAST: {
+        view: 'Move Right',
+        action: PLAYER_ACTIONS.TRAVEL_ROOM,
+        direction: 'e',
     },
     TAG_ROOM: {
         view: 'Tag room',
@@ -115,9 +115,9 @@ export const ACTION_TIPS = {
 export const DEFAULT_ROOM_ACTIONS = {
     Move: [
         ACTION_OPTIONS.MOVE_NORTH,
+        ACTION_OPTIONS.MOVE_WEST,
         ACTION_OPTIONS.MOVE_SOUTH,
         ACTION_OPTIONS.MOVE_EAST,
-        ACTION_OPTIONS.MOVE_WEST,
     ],
     Tag: [
         ACTION_OPTIONS.TAG_ROOM,

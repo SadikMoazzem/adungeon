@@ -6,7 +6,7 @@ import ValidateMaze from './ValidateMaze';
 import ValidateRoomsHasKeys from './ValidateRoom';
 
 /**
- * Class that hold the maze and functions needed to creat, update and validate it
+ * Class that hold the maze and functions needed to create, update and validate it
  */
 export default class Maze {
     constructor(mazeObj) {

@@ -1,6 +1,5 @@
 import * as moduleActions from './actions';
 import { VIEW } from './constants';
-import Maze from '../maze/Maze';
 
 const initialState = {
     currentView: VIEW.MAIN_MENU,

@@ -1,13 +1,12 @@
 /**
- * A Factory Function that creates a player Obj
+ * A Factory function that creates a player Obj
  */
 
 const createPlayer = ({
-    health = 20, wealth = 0, weapon = '', taggedRooms = [],
+    health = 20, wealth = 0, taggedRooms = [],
 }) => ({
     health,
     wealth,
-    weapon,
     taggedRooms,
     updateHealth(damage) {
         this.health -= damage;
